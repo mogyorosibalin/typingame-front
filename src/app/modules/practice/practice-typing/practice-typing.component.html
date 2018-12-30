@@ -1,0 +1,14 @@
+<div class="typing-container content-container" #typingContainer [ngClass]="{ 'error': isError() }">
+  <div class="progression-container">
+    <div class="visual-info">
+      <div class="avatar" style="background-image: url('http://i.pravatar.cc/40?u=a042581f4eko41l');"></div>
+      <div class="progression" id="progressionContainer">
+        <div class="progression-bar"></div>
+      </div>
+    </div>
+    <div class="speed">
+      <strong><span id="speed">0</span> WPM</strong>
+    </div>
+  </div>
+  <div id="textContainer" #textContainer></div>
+</div>
