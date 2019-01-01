@@ -4,9 +4,7 @@ import { Subject } from 'rxjs';
 
 import { TypingInfo } from '../models/typing-info.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TypingService {
 
   private renderer: Renderer2;
@@ -215,9 +213,6 @@ export class TypingService {
     this.finished = true;
     this.finishTime = new Date();
     this.updateStatistics();
-    console.log(this.typingContainer.nativeElement.querySelector('.active'));
-    console.log(this.currentChar);
-    console.log(this.nextChar);
     this.renderer.removeClass(this.typingContainer.nativeElement.querySelector('.active'), 'active');
     this.typingFinished.next();
   }

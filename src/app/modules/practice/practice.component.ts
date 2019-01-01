@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit, Output } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
+import { AuthService } from '../../core/auth/auth.service';
 import { TypingService } from '../../shared/services/typing.service';
 
 import { TypingInfo } from '../../shared/models/typing-info.model';
@@ -24,7 +24,8 @@ export class PracticeComponent implements OnInit, OnDestroy {
 
   private typingAgain: Subscription;
 
-  constructor(private typingService: TypingService) { }
+  constructor(private typingService: TypingService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.typingService.fetchTypingInfo();
@@ -53,6 +54,10 @@ export class PracticeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.practiceFinished.unsubscribe();
     this.typingInfoFetched.unsubscribe();
+  }
+
+  isAuthenticated(): boolean {
+    return this.authService.isAuthenticated();
   }
 
   isPracticeFinished(): boolean {

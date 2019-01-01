@@ -10,7 +10,10 @@ import { SidebarComponent } from './core/sidebar/sidebar.component';
 import { AboutComponent } from './modules/about/about.component';
 import { StylesComponent } from './modules/styles/styles.component';
 
+import { AuthService } from './core/auth/auth.service';
+
 import { InputFilledDirective } from './shared/directives/input-fields.directive';
+import { LoadingComponent } from './shared/components/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -18,13 +21,17 @@ import { InputFilledDirective } from './shared/directives/input-fields.directive
     SidebarComponent,
     AboutComponent,
     StylesComponent,
-    InputFilledDirective
+    InputFilledDirective,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     PracticeModule
+  ],
+  providers: [
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
