@@ -1,0 +1,31 @@
+@import '../../../../assets/sass/modules/colors'
+
+.content-container
+  display: flex
+  flex-direction: row
+
+  .practice-statistics
+    width: 250px
+    min-height: 100%
+
+    .practice-statistic
+      padding: 1rem 0
+      border-bottom: 1px solid $colorLight
+      color: $colorDark
+      font:
+        size: 1.1rem
+        weight: 700
+
+      &:last-child
+        border-bottom: none
+
+      .btn
+        display: block
+        width: 100%
+
+  .practice-product-info
+    width: calc(100% - 250px - 1.5rem)
+    min-height: 100%
+    margin-left: 1.5rem
+    padding-left: 1.5rem
+    border-left: 1px solid $colorLight

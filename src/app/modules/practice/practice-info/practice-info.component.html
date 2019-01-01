@@ -1,14 +1,23 @@
 <div class="content-container">
-  <button class="btn btn-blue" (click)="onPracticeAgain()">
-    Practice Again
-  </button>
-  <hr>
-  <strong>Accuracy: {{ getAccuracy() }}%</strong><hr>
-  <strong>Time: {{ getElapsedTime() }} secs</strong><hr>
-  <strong>Speed: {{ getSpeed() }} WPM</strong><hr>
-  <div class="product-info">
+  <div class="practice-statistics">
+    <div class="practice-statistic">
+      <button class="btn btn-blue" (click)="onPracticeAgain()">
+        Practice Again
+      </button>
+    </div>
+    <div class="practice-statistic">
+      Accuracy: {{ getAccuracy() }}%
+    </div>
+    <div class="practice-statistic">
+      Time: {{ getElapsedTime() }} secs
+    </div>
+    <div class="practice-statistic">
+      Speed: {{ getSpeed() }} WPM
+    </div>
+  </div>
+  <div class="practice-product-info">
     <p>
-      You typed a text from a(n) <b>{{ typingInfo.product.productType.type }}</b>
+    You typed a text from a(n) <b>{{ typingInfo.product.productType.type }}</b>
     </p>
     <h3 class="product-title">
       {{ typingInfo.product.author }}: {{ typingInfo.product.name }}
