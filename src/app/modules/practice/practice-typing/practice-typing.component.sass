@@ -1,5 +1,7 @@
 @import '../../../../assets/sass/modules/colors'
 
+$blockError: true !default
+
 .typing-container
 
   &.error
@@ -16,6 +18,7 @@
       line-height: 36px
       height: 36px
       color: $colorLight
+      border-bottom: 2px solid transparent
       border-left: 1px solid transparent
 
     span
@@ -30,8 +33,12 @@
       color: $colorGreen
 
     pre.wrong, span.wrong
-      color: $colorRed
-      border-bottom: 2px solid $colorRed
+      @if $blockError
+        background-color: $colorRed
+        color: white
+      @else
+        color: $colorRed
+        border-bottom-color: $colorRed
 
   .progression-container
     display: flex
