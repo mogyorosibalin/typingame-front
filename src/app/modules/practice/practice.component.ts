@@ -39,6 +39,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.finished = true;
+          this.typingService.updateTextAfterPracticeFinished();
         }
       );
     this.typingAgain = this.typingService.typingAgain
