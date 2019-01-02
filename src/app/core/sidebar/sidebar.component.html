@@ -1,4 +1,15 @@
-<div class="user-avatar" style="background-image: url('http://i.pravatar.cc/250?u=a042581f4eko41l');"></div>
+<div class="user-info">
+  <div class="user-avatar" style="background-image: url('http://i.pravatar.cc/250?u=a042581f4eko41l');"></div>
+  <div class="statistic-container">
+    <h3 class="user-name">Guest</h3>
+    <span class="average-speed">Average speed<br><b>{{ getAverageSpeed() }} WPM</b></span>
+    <div class="detailed-statistics">
+      <span class="average-accuracy">Average accuracy: <b>{{ getAverageAccuracy() }}%</b></span>
+      <span class="typing-times">Typing times: <b>{{ getTypingTimes() }}</b></span>
+      <p>In order to see more detailed statistics, you need to be logged in.</p>
+    </div>
+  </div>
+</div>
 <nav class="menu-container">
   <ul class="menu">
     <li class="menu-item">

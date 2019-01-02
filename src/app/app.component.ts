@@ -14,6 +14,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem('typingResults') !== null) {
+      localStorage.removeItem('typingResults');
+    }
     if (localStorage.getItem('isLoggedIn') === 'true') {
       this.authService.renewTokens();
     }

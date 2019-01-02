@@ -2,9 +2,11 @@ import {ElementRef, Injectable, Renderer2} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Subject} from 'rxjs';
 
-import {TypingInfo} from '../models/typing-info.model';
+import { AuthService } from '../../core/auth/auth.service';
 
-import {TypingResult} from '../enums/typing-result.enum';
+import { TypingInfo } from '../models/typing-info.model';
+
+import { TypingResult } from '../enums/typing-result.enum';
 
 @Injectable()
 export class TypingService {
@@ -33,7 +35,8 @@ export class TypingService {
   private going: boolean;
   private finished: boolean;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+              private authService: AuthService) { }
   fetchTypingInfo() {
     return this.httpClient.get<TypingInfo>('http://localhost:8080/texts/random')
       .subscribe(
@@ -234,6 +237,22 @@ export class TypingService {
     this.finishTime = new Date();
     this.updateStatistics();
     this.renderer.removeClass(this.typingContainer.nativeElement.querySelector('.active'), 'active');
+    if (this.authService.isAuthenticated()) {
+
+    } else {
+      const result = {
+        speed: this.getFinalSpeed(),
+        accuracy: this.getAccuracy()
+      };
+      if (localStorage.getItem('typingResults') === null) {
+        localStorage.setItem('typingResults', JSON.stringify([result]));
+      } else {
+        const results = JSON.parse(localStorage.getItem('typingResults'));
+        results.push(result);
+        localStorage.setItem('typingResults', JSON.stringify(results));
+      }
+      console.log(JSON.parse(localStorage.getItem('typingResults')));
+    }
     this.typingFinished.next();
   }
 
