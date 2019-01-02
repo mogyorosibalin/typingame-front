@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PracticeComponent } from './modules/practice/practice.component';
 import { AboutComponent } from './modules/about/about.component';
 import { StylesComponent } from './modules/styles/styles.component';
+import { AdminComponent } from './modules/admin/admin.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 
 const appRoutes: Routes = [
@@ -11,6 +12,7 @@ const appRoutes: Routes = [
   { path: 'practice', component: PracticeComponent, runGuardsAndResolvers: 'always' },
   { path: 'about', component: AboutComponent },
   { path: 'styles', component: StylesComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'loading', component: LoadingComponent }
 ];
 

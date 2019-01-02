@@ -1,8 +1,5 @@
-<div class="container">
-  <app-practice-typing [practiceText]="typingInfo.text" *ngIf="typingInfo"></app-practice-typing>
-  <app-practice-info [typingInfo]="typingInfo" *ngIf="typingInfo && isPracticeFinished()"></app-practice-info>
-  <div class="content-container" *ngIf="!isAuthenticated()">
-    You have to be logged in, in order to save your results and progress.
-  </div>
+<app-practice-typing [practiceText]="typingInfo.text" *ngIf="typingInfo"></app-practice-typing>
+<app-practice-info [typingInfo]="typingInfo" *ngIf="typingInfo && isPracticeFinished()"></app-practice-info>
+<div class="content-container" *ngIf="!isAuthenticated()">
+  You have to be logged in, in order to save your results and progress.
 </div>
-

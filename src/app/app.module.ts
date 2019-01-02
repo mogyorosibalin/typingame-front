@@ -14,6 +14,7 @@ import { AuthService } from './core/auth/auth.service';
 
 import { InputFilledDirective } from './shared/directives/input-fields.directive';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { AdminComponent } from './modules/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
     AboutComponent,
     StylesComponent,
     InputFilledDirective,
-    LoadingComponent
+    LoadingComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
