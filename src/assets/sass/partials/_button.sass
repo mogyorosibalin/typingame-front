@@ -7,7 +7,10 @@
   font:
     size: 0.9rem
     weight: 300
-  text-transform: uppercase
+  text:
+    transform: uppercase
+    decoration: none
+  letter-spacing: 0.02rem
   outline: none
   box-shadow: none
   color: white
@@ -34,3 +37,9 @@
 
     &:hover
       background-color: darken($colorGreen, 8)
+
+  &.btn-orange
+    background-color: $colorOrange
+
+    &:hover
+      background-color: darken($colorOrange, 8)
