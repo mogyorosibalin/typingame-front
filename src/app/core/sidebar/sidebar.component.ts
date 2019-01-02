@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/auth.service';
+import { TypingService } from '../services/typing.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,15 +11,23 @@ import { AuthService } from '../auth/auth.service';
 })
 export class SidebarComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private typingService: TypingService,
+              private router: Router) { }
 
   ngOnInit() {
+  }
+
+  onPractice() {
+    if (this.router.url === '/practice') {
+      this.typingService.typingAgain.next();
+    }
+    this.router.navigate(['/practice']);
   }
 
   getUserName(): string {
     return this.authService.getProfileNickname();
   }
-
 
   getUserPicture(): string {
     return this.authService.getProfilePicture();

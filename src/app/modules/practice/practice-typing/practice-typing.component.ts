@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 
 import { AuthService } from '../../../core/auth/auth.service';
-import { TypingService } from '../../../shared/services/typing.service';
+import { TypingService } from '../../../core/services/typing.service';
 
 @Component({
   selector: 'app-practice-typing',

@@ -2,17 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
-import { TypingService } from '../../shared/services/typing.service';
+import { TypingService } from '../../core/services/typing.service';
 
 import { TypingInfo } from '../../shared/models/typing-info.model';
 
 @Component({
   selector: 'app-practice',
   templateUrl: './practice.component.html',
-  styleUrls: ['./practice.component.sass'],
-  providers: [
-    TypingService
-  ]
+  styleUrls: ['./practice.component.sass']
 })
 export class PracticeComponent implements OnInit, OnDestroy {
 

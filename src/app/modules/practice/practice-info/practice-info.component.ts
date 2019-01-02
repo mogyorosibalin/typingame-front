@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { TypingService } from '../../../shared/services/typing.service';
+import { TypingService } from '../../../core/services/typing.service';
 
 import { TypingInfo } from '../../../shared/models/typing-info.model';
 

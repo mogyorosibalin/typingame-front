@@ -2,11 +2,11 @@ import { ElementRef, Injectable, Renderer2 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
-import { TypingInfo } from '../models/typing-info.model';
+import { TypingInfo } from '../../shared/models/typing-info.model';
 
-import { CharFeedback } from '../enums/char-feedback.enum';
+import { CharFeedback } from '../../shared/enums/char-feedback.enum';
 
 @Injectable()
 export class TypingService {
@@ -54,6 +54,8 @@ export class TypingService {
   }
 
   resetTypingService() {
+    clearInterval(this.interval);
+
     this.textIndex = 0;
     this.textWasGoodArray = [];
 
@@ -194,6 +196,7 @@ export class TypingService {
   }
 
   private updateStatistics() {
+    console.log(this.getProgression());
     this.renderer.setProperty(this.typingContainer.nativeElement.querySelector('#speed'), 'innerHTML',
       this.finished ? this.getFinalSpeed() : this.getSpeed());
     this.renderer.setStyle(

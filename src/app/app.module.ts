@@ -11,6 +11,7 @@ import { AboutComponent } from './modules/about/about.component';
 import { StylesComponent } from './modules/styles/styles.component';
 
 import { AuthService } from './core/auth/auth.service';
+import { TypingService } from './core/services/typing.service';
 
 import { InputFilledDirective } from './shared/directives/input-fields.directive';
 import { LoadingComponent } from './shared/components/loading/loading.component';
@@ -33,7 +34,8 @@ import { AdminComponent } from './modules/admin/admin.component';
     PracticeModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    TypingService
   ],
   bootstrap: [AppComponent]
 })
