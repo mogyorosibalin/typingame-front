@@ -9,12 +9,14 @@ export class AuthService {
   private _accessToken: string;
   private _expiresAt: number;
 
+  private authProfile: any;
+
   auth0 = new auth0.WebAuth({
     clientID: 'F2byYHTuDPDD2XN9BqMcpx4A0ptvMw4I',
     domain: 'typingame.eu.auth0.com',
     responseType: 'token id_token',
     redirectUri: 'http://localhost:4200/loading',
-    scope: 'openid'
+    scope: 'openid profile'
   });
 
   constructor(public router: Router) {
@@ -56,9 +58,12 @@ export class AuthService {
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
     this._expiresAt = expiresAt;
+    this.authProfile = authResult.idTokenPayload;
+    console.log(this.authProfile);
   }
 
   renewTokens(): void {
+    console.log('renewing tokens');
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
@@ -77,7 +82,7 @@ export class AuthService {
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
     // Go back to the home route
-    this.router.navigate(['/practice']);
+    this.router.navigate(['/about']);
   }
 
   isAuthenticated(): boolean {
@@ -86,4 +91,17 @@ export class AuthService {
     return new Date().getTime() < this._expiresAt;
   }
 
+  getProfileNickname(): string {
+    if (this.isAuthenticated()) {
+      return this.authProfile.nickname;
+    }
+    return 'guest';
+  }
+
+  getProfilePicture(): string {
+    if (this.isAuthenticated()) {
+      return this.authProfile.picture;
+    }
+    return 'http://www.promaxindia.tv/wp-content/uploads/2017/03/no_image_user.png';
+  }
 }

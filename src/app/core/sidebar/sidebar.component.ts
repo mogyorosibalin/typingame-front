@@ -14,6 +14,15 @@ export class SidebarComponent implements OnInit {
   ngOnInit() {
   }
 
+  getUserName(): string {
+    return this.authService.getProfileNickname();
+  }
+
+
+  getUserPicture(): string {
+    return this.authService.getProfilePicture();
+  }
+
   getAverageSpeed(): number {
     if (localStorage.getItem('typingResults')) {
       const typingResults = JSON.parse(localStorage.getItem('typingResults'));

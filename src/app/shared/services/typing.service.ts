@@ -1,12 +1,12 @@
-import {ElementRef, Injectable, Renderer2} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
+import { ElementRef, Injectable, Renderer2 } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 import { AuthService } from '../../core/auth/auth.service';
 
 import { TypingInfo } from '../models/typing-info.model';
 
-import { TypingResult } from '../enums/typing-result.enum';
+import { CharFeedback } from '../enums/char-feedback.enum';
 
 @Injectable()
 export class TypingService {
@@ -29,7 +29,7 @@ export class TypingService {
   private finishTime: Date;
 
   private textIndex: number;
-  private textWasGoodArray: TypingResult[];
+  private textWasGoodArray: CharFeedback[];
 
   private error: boolean;
   private going: boolean;
@@ -94,9 +94,9 @@ export class TypingService {
   updateTextAfterPracticeFinished(): void {
     const chars = this.typingContainer.nativeElement.querySelectorAll('.correct');
     for (let i = 0; i < this.textWasGoodArray.length; i++) {
-      if (this.textWasGoodArray[i] !== TypingResult.CORRECT) {
+      if (this.textWasGoodArray[i] !== CharFeedback.CORRECT) {
         this.renderer.removeClass(chars[i], 'correct');
-        if (this.textWasGoodArray[i] === TypingResult.WRONG) {
+        if (this.textWasGoodArray[i] === CharFeedback.WRONG) {
           this.renderer.addClass(chars[i], 'wrong-after');
         } else {
           this.renderer.addClass(chars[i], 'unproductive');
@@ -140,11 +140,11 @@ export class TypingService {
         } else {
           this.renderer.addClass(this.currentChar, 'wrong');
           if (this.isError()) {
-            if (this.textWasGoodArray[this.textIndex] === TypingResult.CORRECT) {
-              this.textWasGoodArray[this.textIndex] = TypingResult.UNPRODUCTIVE;
+            if (this.textWasGoodArray[this.textIndex] === CharFeedback.CORRECT) {
+              this.textWasGoodArray[this.textIndex] = CharFeedback.UNPRODUCTIVE;
             }
           } else {
-            this.textWasGoodArray[this.textIndex] = TypingResult.WRONG;
+            this.textWasGoodArray[this.textIndex] = CharFeedback.WRONG;
           }
           this.error = true;
         }
@@ -186,7 +186,7 @@ export class TypingService {
 
   private setUpTextWasGoodArray() {
     for (let i = 0; i < this.text.length; i++) {
-      this.textWasGoodArray.push(TypingResult.CORRECT);
+      this.textWasGoodArray.push(CharFeedback.CORRECT);
     }
   }
 
@@ -271,7 +271,7 @@ export class TypingService {
 
   getAccuracy() {
     return Math.round(
-      (this.textWasGoodArray.filter(good => good !== TypingResult.WRONG).length / this.textWasGoodArray.length) * 100 * 100) / 100;
+      (this.textWasGoodArray.filter(good => good !== CharFeedback.WRONG).length / this.textWasGoodArray.length) * 100 * 100) / 100;
   }
 
   getElapsedTime() {

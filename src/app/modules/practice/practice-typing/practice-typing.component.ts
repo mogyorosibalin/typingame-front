@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 
+import { AuthService } from '../../../core/auth/auth.service';
 import { TypingService } from '../../../shared/services/typing.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class PracticeTypingComponent implements OnInit {
   }
 
   constructor(private typingService: TypingService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              private authService: AuthService) {
     this.typingService.setRenderer(this.renderer);
   }
 
@@ -28,6 +30,10 @@ export class PracticeTypingComponent implements OnInit {
 
   isError(): boolean {
     return this.typingService.isError();
+  }
+
+  getUserPicture(): string {
+    return this.authService.getProfilePicture();
   }
 
 }
