@@ -17,6 +17,8 @@ export class TypingService {
   typingFinished = new Subject();
   typingAgain = new Subject();
 
+  private typingInfo: TypingInfo;
+
   private typingContainer: ElementRef;
   private textContainer: ElementRef;
   private text: string;
@@ -41,6 +43,7 @@ export class TypingService {
     return this.httpClient.get<TypingInfo>('http://localhost:8080/texts/random')
       .subscribe(
         (typingInfo: TypingInfo) => {
+          this.typingInfo = typingInfo;
           this.typingInfoFetched.next(typingInfo);
         }
       );
@@ -238,22 +241,32 @@ export class TypingService {
     this.updateStatistics();
     this.renderer.removeClass(this.typingContainer.nativeElement.querySelector('.active'), 'active');
     if (this.authService.isAuthenticated()) {
-
+      this.saveResultOnline();
     } else {
-      const result = {
-        speed: this.getFinalSpeed(),
-        accuracy: this.getAccuracy()
-      };
-      if (localStorage.getItem('typingResults') === null) {
-        localStorage.setItem('typingResults', JSON.stringify([result]));
-      } else {
-        const results = JSON.parse(localStorage.getItem('typingResults'));
-        results.push(result);
-        localStorage.setItem('typingResults', JSON.stringify(results));
-      }
-      console.log(JSON.parse(localStorage.getItem('typingResults')));
+      this.saveResultOffline();
     }
     this.typingFinished.next();
+  }
+
+  private saveResultOnline(): void {
+    this.httpClient.post(
+      'http://localhost:8080/typing-results/save',
+      { textId: this.typingInfo.id, chars: this.textWasGoodArray, time: this.getElapsedTime(), userHash: this.authService.getUserHash() }
+    ).subscribe();
+  }
+
+  private saveResultOffline(): void {
+    const result = {
+      speed: this.getFinalSpeed(),
+      accuracy: this.getAccuracy()
+    };
+    if (localStorage.getItem('typingResults') === null) {
+      localStorage.setItem('typingResults', JSON.stringify([result]));
+    } else {
+      const results = JSON.parse(localStorage.getItem('typingResults'));
+      results.push(result);
+      localStorage.setItem('typingResults', JSON.stringify(results));
+    }
   }
 
   private charWasPressed() {

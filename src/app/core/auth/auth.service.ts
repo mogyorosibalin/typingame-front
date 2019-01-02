@@ -91,6 +91,13 @@ export class AuthService {
     return new Date().getTime() < this._expiresAt;
   }
 
+  getUserHash(): string {
+    if (this.isAuthenticated()) {
+      return this.authProfile.sub;
+    }
+    return null;
+  }
+
   getProfileNickname(): string {
     if (this.isAuthenticated()) {
       return this.authProfile.nickname;
@@ -104,4 +111,5 @@ export class AuthService {
     }
     return 'http://www.promaxindia.tv/wp-content/uploads/2017/03/no_image_user.png';
   }
+
 }
