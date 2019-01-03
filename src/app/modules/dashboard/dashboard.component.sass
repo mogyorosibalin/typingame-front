@@ -13,21 +13,25 @@
 
     .dashboard-option
       flex-grow: 1
-      border-bottom: 1px solid $colorDark
       border-right: 1px solid $colorDark
+
+      &:last-child
+        border-right: none
 
       .dashboard-option-link
         display: block
         width: 100%
         padding: 1.3rem 0
-        font-size: 1.1rem
+        font-size: 1.05rem
         text:
           decoration: none
           align: center
           transform: uppercase
+        cursor: pointer
+        transition: background-color 0.2s ease-in-out
 
         &:hover
           background-color: rgba(0, 0, 0, .1)
 
-      &:last-child
-        border-right: none
+        &.active
+          background-color: rgba(0, 0, 0, .15)

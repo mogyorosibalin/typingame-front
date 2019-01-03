@@ -1,8 +1,7 @@
 <div
-  class="typing-result-container"
-  [ngClass]="{ 'odd': currentId % 2 === 1, 'even': currentId % 2 === 0 }"
-  appOpened>
-  <header class="typing-result-header">
+  class="content-container"
+  [ngClass]="{ 'odd': currentId % 2 === 1, 'even': currentId % 2 === 0 }">
+  <header class="typing-result-header" appOpened>
     <span>
       #( {{ length - currentId }} ) - {{ typingResult.finishedTime | date:'yyyy-MM-dd HH:mm' }}
     </span>

@@ -2,17 +2,15 @@
   <header class="dashboard-header">
     <ul class="dashboard-options">
       <li class="dashboard-option">
-        <a routerLink="profile" class="dashboard-option-link">Profile</a>
+        <a routerLink="profile" routerLinkActive="active" class="dashboard-option-link">Profile</a>
       </li>
       <li class="dashboard-option">
-        <a routerLink="practice-history" class="dashboard-option-link">Practice History</a>
+        <a routerLink="practice-history" routerLinkActive="active" class="dashboard-option-link">Practice History</a>
       </li>
       <li class="dashboard-option">
-        <a routerLink="statistics" class="dashboard-option-link">Statistics</a>
+        <a routerLink="statistics" routerLinkActive="active" class="dashboard-option-link">Statistics</a>
       </li>
     </ul>
   </header>
-  <main class="dashboard-content">
-    <router-outlet></router-outlet>
-  </main>
 </div>
+<router-outlet></router-outlet>
