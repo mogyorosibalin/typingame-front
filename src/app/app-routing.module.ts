@@ -5,7 +5,11 @@ import { PracticeComponent } from './modules/practice/practice.component';
 import { AboutComponent } from './modules/about/about.component';
 import { StylesComponent } from './modules/styles/styles.component';
 import { AdminComponent } from './modules/admin/admin.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { ProfileComponent } from './modules/dashboard/profile/profile.component';
+import { PracticeHistoryComponent } from './modules/dashboard/practice-history/practice-history.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
+import { StatisticsComponent } from './modules/dashboard/statistics/statistics.component';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/about' },
@@ -13,6 +17,13 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'styles', component: StylesComponent },
   { path: 'admin', component: AdminComponent },
+  { path: 'dashboard', component: DashboardComponent, children: [
+      { path: '', pathMatch: 'full', redirectTo: 'profile' },
+      { path: 'profile', component: ProfileComponent },
+      { path: 'practice-history', component: PracticeHistoryComponent },
+      { path: 'statistics', component: StatisticsComponent }
+    ]
+  },
   { path: 'loading', component: LoadingComponent }
 ];
 

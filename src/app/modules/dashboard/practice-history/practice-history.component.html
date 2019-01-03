@@ -1,0 +1,8 @@
+<div class="practice-history-container">
+  <app-typing-result
+    *ngFor="let typingResult of getTypingResults() | reverse; let i = index"
+    [typingResult]="typingResult"
+    [currentId]="i"
+    [length]="getTypingResults().length">
+  </app-typing-result>
+</div>

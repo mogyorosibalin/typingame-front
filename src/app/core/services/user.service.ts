@@ -14,6 +14,10 @@ export class UserService {
     this.typingResults = typingResults;
   }
 
+  getTypingResults() {
+    return this.typingResults;
+  }
+
   setProfile(profile: any) {
     this.profile = profile;
   }

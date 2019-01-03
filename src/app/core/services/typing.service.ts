@@ -1,13 +1,13 @@
-import { ElementRef, Injectable, Renderer2 } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import {ElementRef, Injectable, Renderer2} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Subject} from 'rxjs';
 
-import { AuthService } from '../auth/auth.service';
-import { UserService } from './user.service';
+import {AuthService} from '../auth/auth.service';
+import {UserService} from './user.service';
 
-import { TypingInfo } from '../../shared/models/typing-info.model';
+import {TypingInfo} from '../../shared/models/typing-info.model';
 
-import { CharFeedback } from '../../shared/enums/char-feedback.enum';
+import {CharFeedback} from '../../shared/enums/char-feedback.enum';
 
 @Injectable()
 export class TypingService {
@@ -75,18 +75,18 @@ export class TypingService {
 
     this.setUpTextWasGoodArray();
 
-    this.loadTextToDom();
+    this.loadTextToDom(this.text, this.textContainer);
   }
 
-  loadTextToDom(): void {
-    for (let i = 0; i < this.text.length; i++) {
+  loadTextToDom(text: string, textContainer: ElementRef): void {
+    for (let i = 0; i < text.length; i++) {
       this.addChildToParent(
-        this.textContainer.nativeElement,
+        textContainer.nativeElement,
         'span',
-        this.text[i],
+        text[i],
         i === 0 ? 'active' : '');
     }
-    this.addChildToParent(this.textContainer.nativeElement, 'span', '');
+    this.addChildToParent(textContainer.nativeElement, 'span', '');
   }
 
   private addChildToParent(parent: any, childType: string, childText: string, childClass = '') {
@@ -98,14 +98,14 @@ export class TypingService {
     this.renderer.appendChild(parent, childElement);
   }
 
-  updateTextAfterPracticeFinished(): void {
-    const chars = this.typingContainer.nativeElement.querySelectorAll('.correct');
-    for (let i = 0; i < this.textWasGoodArray.length; i++) {
-      if (this.textWasGoodArray[i] !== CharFeedback.CORRECT) {
+  updateTextAfterPracticeFinished(typingContainer: ElementRef, textWasGoodArray: CharFeedback[]): void {
+    const chars = typingContainer.nativeElement.querySelectorAll('.correct');
+    for (let i = 0; i < textWasGoodArray.length; i++) {
+      if (textWasGoodArray[i] !== CharFeedback.CORRECT) {
         this.renderer.removeClass(chars[i], 'correct');
-        if (this.textWasGoodArray[i] === CharFeedback.WRONG) {
+        if (textWasGoodArray[i] === CharFeedback.WRONG) {
           this.renderer.addClass(chars[i], 'wrong-after');
-        } else {
+        } else if (textWasGoodArray[i] === CharFeedback.UNPRODUCTIVE) {
           this.renderer.addClass(chars[i], 'unproductive');
         }
       }
@@ -249,6 +249,7 @@ export class TypingService {
     } else {
       this.saveResultOffline();
     }
+    this.updateTextAfterPracticeFinished(this.typingContainer, this.textWasGoodArray);
     this.typingFinished.next();
   }
 

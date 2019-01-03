@@ -1,0 +1,37 @@
+@import '../../../../../assets/sass/modules/colors'
+
+.typing-result-container
+  cursor: pointer
+
+  &.odd
+    background-color: #efefef
+
+  &.even
+    background-color: #dedede
+
+  .typing-result-header
+    display: flex
+    flex-direction: row
+    padding: 0.6rem 1rem
+
+    span
+      line-height: 1.2rem
+      font-size: 1.2rem
+      margin-right: 1rem
+
+    strong
+      width: 120px
+      border-left: 1px solid $colorDark
+      line-height: 1.2rem
+      font-size: 1rem
+      text-align: center
+
+  .typing-result-content
+    padding: 0 1.5rem
+    max-height: 0
+    overflow: hidden
+    transition: max-height 0.3s ease-in-out
+
+  &.opened .typing-result-content
+    max-height: 100vh
+    padding: 0 1.5rem 1.5rem 1.5rem

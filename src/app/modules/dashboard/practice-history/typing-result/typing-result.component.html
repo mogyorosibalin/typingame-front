@@ -1,0 +1,19 @@
+<div
+  class="typing-result-container"
+  [ngClass]="{ 'odd': currentId % 2 === 1, 'even': currentId % 2 === 0 }"
+  appOpened>
+  <header class="typing-result-header">
+    <span>
+      #( {{ length - currentId }} ) - {{ typingResult.finishedTime | date:'yyyy-MM-dd HH:mm' }}
+    </span>
+    <strong>
+      {{ getSpeed() }} WPM
+    </strong>
+    <strong>
+      {{ getAccuracy() }}%
+    </strong>
+  </header>
+  <main class="typing-result-content">
+    <div class="text-container" #textContainer></div>
+  </main>
+</div>
