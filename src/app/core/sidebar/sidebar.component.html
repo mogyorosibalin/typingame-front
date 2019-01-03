@@ -6,7 +6,9 @@
     <div class="detailed-statistics">
       <span class="average-accuracy">Average accuracy: <b>{{ getAverageAccuracy() }}%</b></span>
       <span class="typing-times">Typing times: <b>{{ getTypingTimes() }}</b></span>
-      <p>In order to see more detailed statistics, you need to be logged in.</p>
+      <p *ngIf="!isAuthenticated()">In order to see more detailed statistics, you need to be logged in.</p>
+      <ng-template [ngIf]="isAuthenticated()">
+      </ng-template>
     </div>
   </div>
 </div>

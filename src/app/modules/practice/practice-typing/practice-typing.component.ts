@@ -2,6 +2,7 @@ import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChil
 
 import { AuthService } from '../../../core/auth/auth.service';
 import { TypingService } from '../../../core/services/typing.service';
+import {UserService} from '../../../core/services/user.service';
 
 @Component({
   selector: 'app-practice-typing',
@@ -20,7 +21,8 @@ export class PracticeTypingComponent implements OnInit {
 
   constructor(private typingService: TypingService,
               private renderer: Renderer2,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private userService: UserService) {
     this.typingService.setRenderer(this.renderer);
   }
 
@@ -33,7 +35,7 @@ export class PracticeTypingComponent implements OnInit {
   }
 
   getUserPicture(): string {
-    return this.authService.getProfilePicture();
+    return this.userService.getProfilePicture();
   }
 
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 
 import { AuthService } from '../auth/auth.service';
+import { UserService } from './user.service';
 
 import { TypingInfo } from '../../shared/models/typing-info.model';
 
@@ -38,7 +39,8 @@ export class TypingService {
   private finished: boolean;
 
   constructor(private httpClient: HttpClient,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private userService: UserService) { }
   fetchTypingInfo() {
     return this.httpClient.get<TypingInfo>('http://localhost:8080/texts/random')
       .subscribe(
@@ -196,7 +198,6 @@ export class TypingService {
   }
 
   private updateStatistics() {
-    console.log(this.getProgression());
     this.renderer.setProperty(this.typingContainer.nativeElement.querySelector('#speed'), 'innerHTML',
       this.finished ? this.getFinalSpeed() : this.getSpeed());
     this.renderer.setStyle(
@@ -251,11 +252,15 @@ export class TypingService {
     this.typingFinished.next();
   }
 
-  private saveResultOnline(): void {
+  private saveResultOnline() {
     this.httpClient.post(
       'http://localhost:8080/typing-results/save',
-      { textId: this.typingInfo.id, chars: this.textWasGoodArray, time: this.getElapsedTime(), userHash: this.authService.getUserHash() }
-    ).subscribe();
+      { textId: this.typingInfo.id, chars: this.textWasGoodArray, time: this.getElapsedTime(), userHash: this.userService.getHash() }
+    ).subscribe(
+      (typingResults: any) => {
+        this.userService.setTypingResults(typingResults);
+      }
+    );
   }
 
   private saveResultOffline(): void {
