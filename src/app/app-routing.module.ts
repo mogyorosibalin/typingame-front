@@ -11,13 +11,19 @@ import { PracticeHistoryComponent } from './modules/dashboard/practice-history/p
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { StatisticsComponent } from './modules/dashboard/statistics/statistics.component';
 
+import { AuthGuard } from './core/guards/auth-guard.service';
+
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/about' },
   { path: 'practice', component: PracticeComponent, runGuardsAndResolvers: 'always' },
   { path: 'about', component: AboutComponent },
   { path: 'styles', component: StylesComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'dashboard', component: DashboardComponent, children: [
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [ AuthGuard ],
+    children: [
       { path: '', pathMatch: 'full', redirectTo: 'profile' },
       { path: 'profile', component: ProfileComponent },
       { path: 'practice-history', component: PracticeHistoryComponent },

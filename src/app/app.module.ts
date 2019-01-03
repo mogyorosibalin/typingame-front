@@ -13,6 +13,7 @@ import { StylesComponent } from './modules/styles/styles.component';
 import { AuthService } from './core/auth/auth.service';
 import { TypingService } from './core/services/typing.service';
 import { UserService } from './core/services/user.service';
+import { AuthGuard } from './core/guards/auth-guard.service';
 
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { AdminComponent } from './modules/admin/admin.component';
@@ -52,6 +53,7 @@ import { ReversePipe } from './shared/pipes/reverse.pipe';
   ],
   providers: [
     AuthService,
+    AuthGuard,
     TypingService,
     UserService
   ],
