@@ -11,7 +11,6 @@ export class UserService {
   constructor() { }
 
   setTypingResults(typingResults: any) {
-    console.log(typingResults);
     this.typingResults = typingResults;
   }
 

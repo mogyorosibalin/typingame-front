@@ -82,7 +82,7 @@ export class TypingService {
     for (let i = 0; i < this.text.length; i++) {
       this.addChildToParent(
         this.textContainer.nativeElement,
-        this.text[i] === ' ' ? 'pre' : 'span',
+        'span',
         this.text[i],
         i === 0 ? 'active' : '');
     }

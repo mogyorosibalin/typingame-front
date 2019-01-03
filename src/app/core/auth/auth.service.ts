@@ -67,7 +67,6 @@ export class AuthService {
   }
 
   renewTokens(): void {
-    console.log('renewing tokens');
     this.auth0.checkSession({}, (err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
@@ -87,8 +86,6 @@ export class AuthService {
     localStorage.removeItem('isLoggedIn');
     this.userService.setTypingResults(null);
     this.userService.setProfile(null);
-    // Go back to the home route
-    this.router.navigate(['/about']);
   }
 
   isAuthenticated(): boolean {

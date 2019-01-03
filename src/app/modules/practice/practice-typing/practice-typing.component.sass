@@ -8,9 +8,10 @@
   #textContainer
     white-space: pre-wrap
 
-    pre, span
+    span
+      white-space: pre-wrap
       display: inline
-      padding: 6px 0 3px
+      padding: 2px 1px
       margin: 2px 0
       font-size: 22px
       line-height: 36px
@@ -19,26 +20,22 @@
       border-bottom: 2px solid transparent
       border-left: 1px solid transparent
 
-    span
-      padding: 2px 1px
-      font-size: 22px
-
-    pre.active, span.active
+    span.active
       color: $colorDark
       border-left-color: $colorDark
 
-    pre.correct, span.correct
+    span.correct
       color: $colorGreen
 
-    pre.wrong, span.wrong
+    span.wrong
       background-color: $colorRed
       color: white
 
-    pre.wrong-after, span.wrong-after
+    span.wrong-after
       color: $colorRed
       border-bottom-color: $colorRed
 
-    pre.unproductive, span.unproductive
+    span.unproductive
       color: $colorOrange
       border-bottom-color: $colorOrange
 
