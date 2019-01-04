@@ -10,6 +10,7 @@ import { ProfileComponent } from './modules/dashboard/profile/profile.component'
 import { PracticeHistoryComponent } from './modules/dashboard/practice-history/practice-history.component';
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { StatisticsComponent } from './modules/dashboard/statistics/statistics.component';
+import { ProductDetailComponent } from './modules/admin/product-detail/product-detail.component';
 
 import { AuthGuard } from './core/guards/auth-guard.service';
 
@@ -18,7 +19,10 @@ const appRoutes: Routes = [
   { path: 'practice', component: PracticeComponent, runGuardsAndResolvers: 'always' },
   { path: 'about', component: AboutComponent },
   { path: 'styles', component: StylesComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, children: [
+      { path: 'products/:id', component: ProductDetailComponent }
+    ]
+  },
   {
     path: 'dashboard',
     component: DashboardComponent,

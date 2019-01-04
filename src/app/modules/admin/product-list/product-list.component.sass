@@ -1,0 +1,37 @@
+@import '../../../../assets/sass/modules/colors'
+
+.btn
+  width: 100%
+  margin: 0
+
+.product-list
+  list-style: none
+  padding: 0
+  margin: 0
+  border: 2px solid $colorDark
+
+  .product-list-item
+
+    .product-list-item-link
+      display: flex
+      flex-direction: row
+      align-items: center
+      justify-content: space-between
+      padding: 1rem 0.3rem
+      text-decoration: none
+      cursor: pointer
+      // border-top: 1px solid $colorLight
+      outline: none
+      box-shadow: none
+      transition: all 0.2s ease
+
+      i
+        opacity: 0
+        transition: opacity 0.2s ease
+
+      &:hover, &.active
+        background-color: rgba(0, 0, 0, .05)
+        color: black
+
+      &:hover i, &.active i
+        opacity: 1

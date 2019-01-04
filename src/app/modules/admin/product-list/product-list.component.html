@@ -1,0 +1,19 @@
+<button class="btn btn-green">
+  Add new product
+</button>
+<div class="input-group">
+  <div class="input-container">
+    <input type="text" id="searchProduct" class="input-control" appInputFilled [(ngModel)]="filterText">
+    <label for="searchProduct" class="input-title">Search</label>
+  </div>
+</div>
+<ul class="product-list">
+  <li class="product-list-item" *ngFor="let product of getProducts() | filter:filterText">
+    <a [routerLink]="['products', product.id]" routerLinkActive="active" class="product-list-item-link">
+      <span class="title">
+        <b>{{ product.name }}</b> | {{ product.productType.type }}
+      </span>
+      <i class="fas fa-chevron-right"></i>
+    </a>
+  </li>
+</ul>

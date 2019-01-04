@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { AuthService } from './core/auth/auth.service';
 import { TypingService } from './core/services/typing.service';
 import { UserService } from './core/services/user.service';
 import { AuthGuard } from './core/guards/auth-guard.service';
+import { ProductService } from './shared/services/product.service';
 
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { AdminComponent } from './modules/admin/admin.component';
@@ -22,11 +24,15 @@ import { ProfileComponent } from './modules/dashboard/profile/profile.component'
 import { PracticeHistoryComponent } from './modules/dashboard/practice-history/practice-history.component';
 import { StatisticsComponent } from './modules/dashboard/statistics/statistics.component';
 import { TypingResultComponent } from './modules/dashboard/practice-history/typing-result/typing-result.component';
+import { ProductListComponent } from './modules/admin/product-list/product-list.component';
+import { ProductDetailComponent } from './modules/admin/product-detail/product-detail.component';
 
 import { InputFilledDirective } from './shared/directives/input-fields.directive';
 import { OpenedDirective } from './shared/directives/opened.directive';
 
 import { ReversePipe } from './shared/pipes/reverse.pipe';
+import { FilterPipe } from './shared/pipes/filter.pipe';
+import {TypingInfoService} from './shared/services/typing-info.service';
 
 @NgModule({
   declarations: [
@@ -43,10 +49,14 @@ import { ReversePipe } from './shared/pipes/reverse.pipe';
     StatisticsComponent,
     TypingResultComponent,
     ReversePipe,
-    OpenedDirective
+    OpenedDirective,
+    ProductListComponent,
+    ProductDetailComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule,
     PracticeModule
@@ -55,7 +65,9 @@ import { ReversePipe } from './shared/pipes/reverse.pipe';
     AuthService,
     AuthGuard,
     TypingService,
-    UserService
+    UserService,
+    ProductService,
+    TypingInfoService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,13 @@
+<div class="product-detail-container">
+  <div class="product-info">
+    <div class="product-title">
+      <b>{{ getProduct().name }}</b> | {{ getProduct().author }}
+    </div>
+    <div class="product-type">
+      {{ getProduct().productType.type }}
+    </div>
+  </div>
+  <div class="product-text-container" *ngFor="let typingInfo of getTypingInfos()">
+    {{ typingInfo.text }}
+  </div>
+</div>
