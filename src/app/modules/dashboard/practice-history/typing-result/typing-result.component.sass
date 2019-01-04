@@ -8,7 +8,8 @@
     cursor: pointer
 
     &.opened + .typing-result-content
-      max-height: max-content
+      max-height: 1000px
+      transition: max-height 0.5s ease-in-out
 
     span
       line-height: 1.2rem
@@ -25,7 +26,7 @@
   .typing-result-content
     overflow: hidden
     max-height: 0
-    transition: height 0.5s linear
+    transition: max-height 0.5s cubic-bezier(0, 1, 0, 1)
 
     .text-container
       margin-top: 1rem
