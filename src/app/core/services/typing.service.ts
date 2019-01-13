@@ -266,8 +266,8 @@ export class TypingService {
 
   private saveResultOffline(): void {
     const result = {
-      speed: this.getFinalSpeed(),
-      accuracy: this.getAccuracy()
+      timeMiliSec: this.getElapsedTime(),
+      chars: this.textWasGoodArray
     };
     if (localStorage.getItem('typingResults') === null) {
       localStorage.setItem('typingResults', JSON.stringify([result]));

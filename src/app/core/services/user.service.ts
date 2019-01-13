@@ -35,41 +35,48 @@ export class UserService {
   }
 
   getAverageSpeed(): number {
-    let speedSum = 0;
+    let typingResults = [];
     if (localStorage.getItem('typingResults')) {
-      this.typingResults = JSON.parse(localStorage.getItem('typingResults'));
-      for (let typingResult of this.typingResults) {
-        speedSum += typingResult.speed;
-      }
+      typingResults = JSON.parse(localStorage.getItem('typingResults'));
     } else if (this.typingResults) {
-      for (let typingResult of this.typingResults) {
-        speedSum += Math.round((typingResult.chars.length / 5) / (typingResult.timeSec / 60));
-      }
+      typingResults = this.typingResults;
     }
-    return this.typingResults && this.typingResults.length !== 0 ? Math.round(speedSum / this.typingResults.length) : 0;
+    if (typingResults.length !== 0) {
+      let speedSum = 0;
+      for (const typingResult of typingResults) {
+        speedSum += Math.round((typingResult.chars.length / 5) / (typingResult.timeMiliSec / 1000 / 60));
+      }
+      return Math.round(speedSum / typingResults.length);
+    }
+    return 0;
   }
 
   getAverageAccuracy(): number {
-    let accuracySum = 0;
+    let typingResults = [];
     if (localStorage.getItem('typingResults')) {
-      this.typingResults = JSON.parse(localStorage.getItem('typingResults'));
-      for (let typingResult of this.typingResults) {
-        accuracySum += typingResult.accuracy;
-      }
+      typingResults = JSON.parse(localStorage.getItem('typingResults'));
     } else if (this.typingResults) {
-      for (let typingResult of this.typingResults) {
+      typingResults = this.typingResults;
+    }
+    if (typingResults.length !== 0) {
+      let accuracySum = 0;
+      for (const typingResult of typingResults) {
         accuracySum += Math.round(
           (typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / typingResult.chars.length) * 100 * 100) / 100;
       }
+      return Math.round(accuracySum / typingResults.length * 100) / 100;
     }
-    return this.typingResults && this.typingResults.length !== 0 ? Math.round(accuracySum / this.typingResults.length * 100) / 100 : 0;
+    return 0;
   }
 
   getTypingTimes(): number {
+    let typingResults = [];
     if (localStorage.getItem('typingResults')) {
-      this.typingResults = JSON.parse(localStorage.getItem('typingResults'));
+      typingResults = JSON.parse(localStorage.getItem('typingResults'));
+    } else if (this.typingResults) {
+      typingResults = this.typingResults;
     }
-    return this.typingResults ? this.typingResults.length : 0;
+    return typingResults.length;
   }
 
 }
