@@ -21,10 +21,9 @@ export class TypingResultComponent implements OnInit {
               private renderer: Renderer2) { }
 
   ngOnInit() {
-    console.log(this.typingResult);
     this.typingService.loadTextToDom(this.typingResult.text.text, this.textContainer);
     const chars = this.textContainer.nativeElement.querySelectorAll('span');
-    for (let i = 0; i < chars.length - 2; i++) {
+    for (let i = 0; i < chars.length - 1; i++) {
       this.renderer.removeClass(chars[i], 'active');
       this.renderer.addClass(chars[i], 'correct');
     }
@@ -32,7 +31,7 @@ export class TypingResultComponent implements OnInit {
   }
 
   getSpeed() {
-    return Math.round((this.typingResult.chars.length / 5) / (this.typingResult.timeSec / 60));
+    return Math.round((this.typingResult.chars.length / 5) / (this.typingResult.timeMiliSec / 1000 / 60));
   }
 
   getAccuracy() {
