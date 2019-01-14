@@ -1,5 +1,10 @@
 <div class="product-detail-container">
-  <div class="product-info">
+  <div class="product-actions">
+    <a routerLink="new-text" class="btn btn-green">New Text</a>
+    <a routerLink="edit" class="btn btn-blue">Edit Product</a>
+    <a routerLink="delete" class="btn btn-red">Delete Product</a>
+  </div>
+  <div class="product-info" *ngIf="getProduct()">
     <div class="product-title">
       <b>{{ getProduct().name }}</b> | {{ getProduct().author }}
     </div>
@@ -8,6 +13,12 @@
     </div>
   </div>
   <div class="product-text-container" *ngFor="let typingInfo of getTypingInfos()">
-    {{ typingInfo.text }}
+    <p class="product-text">
+      {{ typingInfo.text }}
+    </p>
+    <div class="text-actions">
+      <a routerLink="/" class="btn btn-blue"><i class="fas fa-pencil-alt"></i></a>
+      <a routerLink="/" class="btn btn-red"><i class="far fa-trash-alt"></i></a>
+    </div>
   </div>
 </div>

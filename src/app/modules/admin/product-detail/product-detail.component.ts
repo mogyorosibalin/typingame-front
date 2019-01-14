@@ -31,9 +31,6 @@ export class ProductDetailComponent implements OnInit {
         (params: Params) => {
           this.productId = +params['id'];
           this.product = this.productService.getProduct(this.productId);
-          if (!this.product) {
-            this.router.navigate(['/admin']);
-          }
           this.typingInfos = this.typingInfoService.getTypingInfosByProductId(this.productId);
           if (this.typingInfos.length === 0) {
             this.typingInfoService.fetchTypingInfosForProduct(this.productId);

@@ -1,5 +1,35 @@
+@import '../../../../assets/sass/modules/colors'
+
 .product-detail-container
-  padding-left: 1rem
+  .product-info
+    padding: 1rem 0
+    margin: 1rem 0
+    border-top: 1px solid $colorLight
+    border-bottom: 1px solid $colorLight
 
   .product-text-container
-    margin: 1rem 0
+    margin: 1rem 0.5rem
+    padding: 0 0.3rem 1rem 0.3rem
+    display: flex
+    flex-direction: row
+    border-bottom: 1px solid $colorLight
+
+    .product-text
+      width: calc(100% - 4.4rem)
+      padding: 0
+      margin: 0
+
+    .text-actions
+      width: 4.4rem
+      display: flex
+      justify-content: right
+      align-items: center
+
+      .btn
+        margin: 0 0 0 0.2rem
+        font-size: 0.9rem
+        padding: 0.6rem 0
+        width: 2rem
+
+        i
+          color: white
