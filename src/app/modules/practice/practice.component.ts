@@ -51,6 +51,7 @@ export class PracticeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.practiceFinished.unsubscribe();
     this.typingInfoFetched.unsubscribe();
+    this.typingAgain.unsubscribe();
   }
 
   isAuthenticated(): boolean {
