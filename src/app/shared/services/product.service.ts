@@ -16,8 +16,7 @@ export class ProductService {
     this.httpClient.get<Product[]>('http://localhost:8080/products')
       .subscribe(
         (products: Product[]) => {
-          this.products = products;
-          this.productsChanged.next(this.products.slice());
+          this.setProducts(products);
         }
       );
   }
@@ -31,5 +30,36 @@ export class ProductService {
       }
     }
     return null;
+  }
+
+  setProducts(products: Product[]) {
+    this.products = products;
+    this.productsChanged.next(this.products.slice());
+  }
+
+  addProduct(formValue: any) {
+    this.httpClient.post('http://localhost:8080/products/new', formValue)
+      .subscribe(
+        (products: Product[]) => {
+          this.setProducts(products);
+        }
+      );
+  }
+
+  updateProduct(productId: number, formValue: any) {
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].id === productId) {
+        this.products[i].name = formValue.name;
+        this.products[i].author = formValue.author;
+        this.products[i].productType.type = formValue.type;
+        break;
+      }
+    }
+    this.httpClient.put('http://localhost:8080/products/' + productId + '/edit', formValue)
+      .subscribe(
+        (products: Product[]) => {
+          this.setProducts(products);
+        }
+      );
   }
 }

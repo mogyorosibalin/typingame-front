@@ -11,6 +11,7 @@ import { PracticeHistoryComponent } from './modules/dashboard/practice-history/p
 import { LoadingComponent } from './shared/components/loading/loading.component';
 import { StatisticsComponent } from './modules/dashboard/statistics/statistics.component';
 import { ProductDetailComponent } from './modules/admin/product-detail/product-detail.component';
+import { ProductEditComponent } from './modules/admin/product-edit/product-edit.component';
 
 import { AuthGuard } from './core/guards/auth-guard.service';
 
@@ -19,8 +20,10 @@ const appRoutes: Routes = [
   { path: 'practice', component: PracticeComponent, runGuardsAndResolvers: 'always' },
   { path: 'about', component: AboutComponent },
   { path: 'styles', component: StylesComponent },
-  { path: 'admin', component: AdminComponent, children: [
-      { path: 'products/:id', component: ProductDetailComponent }
+  { path: 'admin/products', component: AdminComponent, children: [
+      { path: 'new', component: ProductEditComponent },
+      { path: ':id', component: ProductDetailComponent },
+      { path: ':id/edit', component: ProductEditComponent }
     ]
   },
   {

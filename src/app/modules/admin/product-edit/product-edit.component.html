@@ -1,0 +1,49 @@
+<div class="product-edit-container" *ngIf="productForm">
+  <h3>New Product</h3>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <div class="input-container">
+        <input
+          type="text"
+          id="productName"
+          class="input-control filled"
+          autocomplete="off"
+          [formControlName]="'name'"
+          appInputFilled>
+        <label for="productName" class="input-title">Product Name</label>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-container">
+        <input
+          type="text"
+          id="productAuthor"
+          class="input-control filled"
+          autocomplete="off"
+          [formControlName]="'author'"
+          appInputFilled>
+        <label for="productAuthor" class="input-title">Product Author</label>
+      </div>
+    </div>
+    <div class="input-group">
+      <div class="input-container">
+        <input
+          type="text"
+          id="productType"
+          class="input-control filled"
+          list="productTypeList"
+          autocomplete="off"
+          [formControlName]="'type'"
+          appInputFilled>
+        <datalist id="productTypeList">
+          <option value="{{ productType.type }}" *ngFor="let productType of getProductTypes()"></option>
+        </datalist>
+        <label for="productType" class="input-title title-fixed">Product Type</label>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="submit" class="btn btn-green">{{ isEditMode() ? 'Save' : 'Add' }}</button>
+      <a routerLink=".." class="btn btn-red">Cancel</a>
+    </div>
+  </form>
+</div>

@@ -23,8 +23,9 @@ export class SidebarComponent implements OnInit {
   onPractice() {
     if (this.router.url === '/practice') {
       this.typingService.typingAgain.next();
+    } else {
+      this.router.navigate(['/practice']);
     }
-    this.router.navigate(['/practice']);
   }
 
   getUserName(): string {

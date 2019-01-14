@@ -25,7 +25,6 @@ export class ProductListComponent implements OnInit {
       .subscribe(
         (products: Product[]) => {
           this.products = products;
-          console.log(this.products);
         }
       );
   }
