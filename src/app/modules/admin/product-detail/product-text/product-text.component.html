@@ -1,0 +1,31 @@
+<div class="product-text-container">
+  <div class="product-text">
+    <p class="raw-text" *ngIf="!isEditing()">
+      {{ typingInfo.text }}
+    </p>
+    <div class="input-group" *ngIf="isEditing()">
+      <div class="input-container">
+        <textarea
+          id="{{ isNewText ? 'newText' : '' }}"
+          class="input-control"
+          rows="3"
+          appInputFilled
+          #text>{{ typingInfo ? typingInfo.text : '' }}</textarea>
+        <label
+          *ngIf="isNewText"
+          for="{{ isNewText ? 'newText' : '' }}"
+          class="input-title">New Text</label>
+      </div>
+    </div>
+  </div>
+  <div class="text-actions">
+    <ng-template [ngIf]="!isEditing()">
+      <a (click)="onEdit()" class="btn btn-blue"><i class="fas fa-pencil-alt"></i></a>
+      <a routerLink="/" class="btn btn-red"><i class="far fa-trash-alt"></i></a>
+    </ng-template>
+    <ng-template [ngIf]="isEditing()">
+      <a (click)="onSave()" class="btn btn-green"><i class="fas fa-paper-plane"></i></a>
+      <a (click)="onCancel()" class="btn btn-red"><i class="fas fa-ban"></i></a>
+    </ng-template>
+  </div>
+</div>

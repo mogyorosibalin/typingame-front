@@ -29,6 +29,7 @@ import { TypingResultComponent } from './modules/dashboard/practice-history/typi
 import { ProductListComponent } from './modules/admin/product-list/product-list.component';
 import { ProductDetailComponent } from './modules/admin/product-detail/product-detail.component';
 import { ProductEditComponent } from './modules/admin/product-edit/product-edit.component';
+import { ProductTextComponent } from './modules/admin/product-detail/product-text/product-text.component';
 
 import { InputFilledDirective } from './shared/directives/input-fields.directive';
 import { OpenedDirective } from './shared/directives/opened.directive';
@@ -55,7 +56,8 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
     ProductListComponent,
     ProductDetailComponent,
     FilterPipe,
-    ProductEditComponent
+    ProductEditComponent,
+    ProductTextComponent
   ],
   imports: [
     BrowserModule,

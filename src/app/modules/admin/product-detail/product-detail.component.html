@@ -1,6 +1,6 @@
 <div class="product-detail-container">
   <div class="product-actions">
-    <a routerLink="new-text" class="btn btn-green">New Text</a>
+    <a (click)="onNewText()" class="btn btn-green">New Text</a>
     <a routerLink="edit" class="btn btn-blue">Edit Product</a>
     <a routerLink="delete" class="btn btn-red">Delete Product</a>
   </div>
@@ -12,13 +12,14 @@
       {{ getProduct().productType.type }}
     </div>
   </div>
-  <div class="product-text-container" *ngFor="let typingInfo of getTypingInfos()">
-    <p class="product-text">
-      {{ typingInfo.text }}
-    </p>
-    <div class="text-actions">
-      <a routerLink="/" class="btn btn-blue"><i class="fas fa-pencil-alt"></i></a>
-      <a routerLink="/" class="btn btn-red"><i class="far fa-trash-alt"></i></a>
-    </div>
+  <div class="scrollable-container">
+    <app-product-text
+      *ngIf="isNewText() && getProduct()"
+      [isNewText]="true"
+      [productId]="getProduct().id"
+      (cancelNewText)="onCancelNewText()"></app-product-text>
+    <app-product-text
+      *ngFor="let typingInfo of getTypingInfos()"
+      [typingInfo]="typingInfo"></app-product-text>
   </div>
 </div>

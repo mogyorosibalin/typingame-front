@@ -33,4 +33,33 @@ export class TypingInfoService {
         }
       );
   }
+
+  addTypingInfo(productId: number, text: string) {
+    this.httpClient.post('http://localhost:8080/texts/new', {
+      productId: productId,
+      text: text
+    }).subscribe(
+      (typingInfo: TypingInfo) => {
+        this.typingInfos.push(typingInfo);
+        this.typingInfosChanged.next(this.getTypingInfosByProductId(productId));
+      }
+    );
+  }
+
+  updateTypingInfo(id: number, text: string) {
+    for (let i = 0; i < this.typingInfos.length; i++) {
+      if (this.typingInfos[i].id === id) {
+        this.typingInfos[i].text = text;
+        break;
+      }
+    }
+    this.httpClient.put('http://localhost:8080/texts/' + id + '/edit', {
+      text: text
+    }).subscribe(
+      (typingInfo: TypingInfo) => {
+        // Nothing
+      }
+    );
+  }
+
 }

@@ -1,11 +1,11 @@
-import { Directive, ElementRef, HostBinding, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostBinding, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appInputFilled]'
 })
-export class InputFilledDirective implements OnInit {
+export class InputFilledDirective implements AfterViewInit {
 
-  @HostBinding('class.filled') isFilled: boolean;
+  @HostBinding('class.filled') isFilled = false;
 
   @HostListener('focusout') focusOut() {
     this.isFilled = this.element.nativeElement.value !== '';
@@ -13,8 +13,10 @@ export class InputFilledDirective implements OnInit {
 
   constructor(private element: ElementRef) { }
 
-  ngOnInit() {
-    this.isFilled = this.element.nativeElement.value !== '';
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.isFilled = this.element.nativeElement.value !== '';
+    }, 1);
   }
 
 }

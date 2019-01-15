@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -13,12 +13,15 @@ import { Product } from '../../../shared/models/product.model';
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.sass']
 })
-export class ProductDetailComponent implements OnInit {
+export class ProductDetailComponent implements OnInit, OnDestroy {
 
   productId: number;
   private product: Product;
+  private productsChangedSubscription: Subscription;
   private typingInfos: TypingInfo[];
   private typingInfosChangedSubscription: Subscription;
+
+  private newText = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -43,6 +46,17 @@ export class ProductDetailComponent implements OnInit {
           this.typingInfos = typingInfos;
         }
       );
+    this.productsChangedSubscription = this.productService.productsChanged
+      .subscribe(
+        (products: Product[]) => {
+          this.product = this.productService.getProduct(this.productId);
+        }
+      );
+  }
+
+  ngOnDestroy() {
+    this.typingInfosChangedSubscription.unsubscribe();
+    this.productsChangedSubscription.unsubscribe();
   }
 
   getProduct(): Product {
@@ -51,6 +65,18 @@ export class ProductDetailComponent implements OnInit {
 
   getTypingInfos(): TypingInfo[] {
     return this.typingInfos;
+  }
+
+  isNewText(): boolean {
+    return this.newText;
+  }
+
+  onNewText() {
+    this.newText = true;
+  }
+
+  onCancelNewText() {
+    this.newText = false;
   }
 
 }
