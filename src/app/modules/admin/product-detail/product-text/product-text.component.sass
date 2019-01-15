@@ -1,14 +1,18 @@
 @import '../../../../../assets/sass/modules/colors'
 
 .product-text-container
-  margin: 1rem 0.5rem
-  padding: 0 0.3rem 1rem 0.3rem
-  display: flex
-  flex-direction: row
+  margin: 0 0.5rem
+  padding: 1rem 0.3rem
   border-bottom: 1px solid $colorLight
+  cursor: pointer
+
+  &:hover
+    // background-color: rgba(0, 0, 0, .05)
+    .text-actions
+      display: block
 
   .product-text
-    width: calc(100% - 4.4rem)
+    width: 100%
     padding: 0
     margin: 0
 
@@ -23,10 +27,19 @@
         padding: 0.5rem
 
   .text-actions
+    display: none
     width: 4.4rem
-    display: flex
-    justify-content: right
-    align-items: center
+    position: absolute
+    top: 50%
+    transform: translateY(-50%)
+    right: 0
+
+    &.new-actions
+      position: relative
+      display: block
+      width: 100%
+      text-align: right
+      transform: none
 
     .btn
       margin: 0 0 0 0.2rem
