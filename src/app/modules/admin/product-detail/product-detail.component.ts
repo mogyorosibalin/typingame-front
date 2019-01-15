@@ -50,6 +50,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (products: Product[]) => {
           this.product = this.productService.getProduct(this.productId);
+          if (!this.product) {
+            this.router.navigate(['../'], { relativeTo: this.route });
+          }
         }
       );
   }
@@ -77,6 +80,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   onCancelNewText() {
     this.newText = false;
+  }
+
+  onDelete() {
+    if (confirm('Are you sure you want to delete this product: ' + this.product.name + '?')) {
+      this.typingInfoService.deleteTypingInfoForProduct(this.product.id);
+      this.productService.deleteProduct(this.product.id);
+    }
   }
 
 }

@@ -62,4 +62,15 @@ export class ProductService {
         }
       );
   }
+
+  deleteProduct(id: number) {
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].id === id) {
+        this.products.splice(i, 1);
+        this.productsChanged.next(this.products.slice());
+        break;
+      }
+    }
+    this.httpClient.delete('http://localhost:8080/products/' + id + '/delete').subscribe();
+  }
 }

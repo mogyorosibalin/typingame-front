@@ -62,4 +62,24 @@ export class TypingInfoService {
     );
   }
 
+  deleteTypingInfo(id: number) {
+    for (let i = 0; i < this.typingInfos.length; i++) {
+      if (this.typingInfos[i].id === id) {
+        const productId = this.typingInfos[i].product.id;
+        this.typingInfos.splice(i, 1);
+        this.typingInfosChanged.next(this.getTypingInfosByProductId(productId));
+        break;
+      }
+    }
+    this.httpClient.delete('http://localhost:8080/texts/' + id + '/delete').subscribe();
+  }
+
+  deleteTypingInfoForProduct(productId: number) {
+    for (let i = this.typingInfos.length - 1; i >= 0; i--) {
+      if (this.typingInfos[i].product.id === productId) {
+        this.typingInfos.splice(i, 1);
+      }
+    }
+  }
+
 }

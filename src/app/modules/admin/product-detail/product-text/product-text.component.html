@@ -20,7 +20,7 @@
   </div>
   <div class="text-actions" *ngIf="!isEditing()">
       <a (click)="onEdit()" class="btn btn-blue"><i class="fas fa-pencil-alt"></i></a>
-      <a routerLink="/" class="btn btn-red"><i class="far fa-trash-alt"></i></a>
+      <a (click)="onDelete()" class="btn btn-red"><i class="far fa-trash-alt"></i></a>
   </div>
   <div class="text-actions new-actions" *ngIf="isEditing()">
     <a (click)="onSave()" class="btn btn-green"><i class="fas fa-paper-plane"></i></a>

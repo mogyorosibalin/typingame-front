@@ -37,6 +37,12 @@ export class ProductTextComponent implements OnInit {
     this.editing = true;
   }
 
+  onDelete() {
+    if (confirm('Are you sure you want to delete this text: ' + this.typingInfo.text + '?')) {
+      this.typingInfoService.deleteTypingInfo(this.typingInfo.id);
+    }
+  }
+
   onSave() {
     if (this.isNewText) {
       // Save New
