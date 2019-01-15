@@ -34,4 +34,8 @@ export class PracticeInfoComponent implements OnInit {
     return this.typingService.getFinalSpeed();
   }
 
+  getPoints() {
+    return this.typingService.getPoints();
+  }
+
 }

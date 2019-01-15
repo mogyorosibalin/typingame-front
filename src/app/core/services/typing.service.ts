@@ -256,7 +256,13 @@ export class TypingService {
   private saveResultOnline() {
     this.httpClient.post(
       'http://localhost:8080/typing-results/save',
-      { textId: this.typingInfo.id, chars: this.textWasGoodArray, time: this.getElapsedTime(), userHash: this.userService.getHash() }
+      {
+        textId: this.typingInfo.id,
+        chars: this.textWasGoodArray,
+        time: this.getElapsedTime(),
+        userHash: this.userService.getHash(),
+        points: this.getPoints()
+      }
     ).subscribe(
       (typingResults: any) => {
         this.userService.setTypingResults(typingResults);
@@ -302,6 +308,10 @@ export class TypingService {
 
   getFinalSpeed() {
     return Math.round((this.text.length / 5) / (this.getElapsedTime() / 1000 / 60));
+  }
+
+  getPoints() {
+    return Math.round((this.text.length / 2) * (this.getAccuracy() / 100) * (this.getFinalSpeed() / 100));
   }
 
 }

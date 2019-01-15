@@ -39,4 +39,8 @@ export class TypingResultComponent implements OnInit {
       (this.typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / this.typingResult.chars.length) * 100 * 100) / 100;
   }
 
+  getPoints() {
+    return this.typingResult.points;
+  }
+
 }
