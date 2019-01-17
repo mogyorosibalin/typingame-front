@@ -1,6 +1,6 @@
 <div class="practice-history-container">
   <app-typing-result
-    *ngFor="let typingResult of getTypingResults() | reverse; let i = index"
+    *ngFor="let typingResult of getTypingResults(); let i = index"
     [typingResult]="typingResult"
     [currentId]="i"
     [length]="getTypingResults().length">

@@ -1,0 +1,61 @@
+@import '../../../../assets/sass/modules/colors'
+
+$avatarSize: 200px
+
+.content-container
+  display: flex
+  flex-direction: row
+  align-items: flex-start
+
+  .user-image-container
+    flex-grow: 1
+    .user-image
+      display: block
+      margin: 0 auto
+      width: $avatarSize
+      height: $avatarSize
+      background:
+        size: cover
+        position: center
+        repeat: no-repeat
+      border: 3px solid white
+      box-shadow: 0 0 4px rgba(0, 0, 0, .4)
+
+  .user-info-container
+    flex-grow: 1
+    margin: 0 2rem
+    padding: 0 2rem
+    border-left: 1px solid $colorLight
+    border-right: 1px solid $colorLight
+    align-self: stretch
+
+    .user-info
+      display: flex
+      flex-direction: row
+      justify-content: flex-start
+      border-bottom: 1px solid $colorLight
+
+      &:last-child
+        border-bottom: none
+
+      .user-info-label
+        display: block
+        width: 120px
+        padding: 0.5rem 0.3rem 0.5rem 0
+        color: $colorLight
+
+      .user-info-data
+        display: block
+        padding: 0.5rem 0
+        color: $colorDark
+        font:
+          size: 1.1rem
+          weight: 700
+
+  .user-statistics
+    flex-grow: 1
+    table.detailed-statistics
+      text-align: center
+
+      td
+        padding: 0.5rem

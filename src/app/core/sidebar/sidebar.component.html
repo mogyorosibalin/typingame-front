@@ -2,12 +2,15 @@
   <div class="user-avatar" [ngStyle]="{ 'background-image': 'url(' + getUserPicture() + ')' }"></div>
   <div class="statistic-container">
     <h3 class="user-name">{{ getUserName() }}</h3>
-    <span class="average-speed">Average speed<br><b>{{ getAverageSpeed() }} WPM</b></span>
+    <span class="average-speed">Average speed<br><b>{{ isAuthenticated() ? getAverageSpeedLast() : getAverageSpeed() }} WPM</b></span>
     <div class="detailed-statistics">
       <span class="average-accuracy">Average accuracy: <b>{{ getAverageAccuracy() }}%</b></span>
       <span class="typing-times">Typing times: <b>{{ getTypingTimes() }}</b></span>
       <p *ngIf="!isAuthenticated()">In order to see more detailed statistics, you need to be logged in.</p>
       <ng-template [ngIf]="isAuthenticated()">
+        <span class="points">Points: <b>{{ getPoints() }}</b></span>
+        <span class="average-speed-all">Average speed(all): <b>{{ getAverageSpeed() }} WPM</b></span>
+        <span class="average-speed-lasts">Average speed(last 10): <b>{{ getAverageSpeedLast() }} WPM</b></span>
       </ng-template>
     </div>
   </div>

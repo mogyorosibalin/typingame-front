@@ -37,15 +37,23 @@ export class SidebarComponent implements OnInit {
   }
 
   getAverageSpeed(): number {
-    return this.userService.getAverageSpeed();
+    return this.userService.getSpeed();
   }
 
   getAverageAccuracy(): number {
-    return this.userService.getAverageAccuracy();
+    return this.userService.getAccuracy();
   }
 
   getTypingTimes(): number {
     return this.userService.getTypingTimes();
+  }
+
+  getPoints(): number {
+    return this.userService.getPoints();
+  }
+
+  getAverageSpeedLast(lastNum: number = 10) {
+    return this.userService.getSpeed(lastNum);
   }
 
   onLogin() {

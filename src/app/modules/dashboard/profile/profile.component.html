@@ -1,3 +1,59 @@
 <div class="content-container">
-  profile works!
+  <div class="user-image-container">
+    <div class="user-image" [ngStyle]="{ 'background-image': 'url(' + getPicture() + ')'}"></div>
+  </div>
+  <div class="user-info-container">
+    <div class="user-name user-info">
+      <span class="user-info-label">Name:</span>
+      <span class="user-info-data">{{ getName() }}</span>
+    </div>
+    <div class="user-nickname user-info">
+      <span class="user-info-label">Nickname:</span>
+      <span class="user-info-data">{{ getNickname() }}</span>
+    </div>
+    <div class="user-typing-times user-info">
+      <span class="user-info-label">Typing times:</span>
+      <span class="user-info-data">{{ getTypingTimes() }}</span>
+    </div>
+    <div class="user-typing-times user-info">
+      <span class="user-info-label">Points:</span>
+      <span class="user-info-data">{{ getPoints() }}</span>
+    </div>
+  </div>
+  <div class="user-statistics">
+    <table class="detailed-statistics">
+      <thead>
+        <tr>
+          <th colspan="3">Averages</th>
+        </tr>
+        <tr>
+          <th>Speed(WPM)</th>
+          <th></th>
+          <th>Accuracy(%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>{{ getAverageSpeedAll() }}</th>
+          <td>All</td>
+          <th>{{ getAverageAccuracyAll() }}</th>
+        </tr>
+        <tr>
+          <th>{{ getRealAverageSpeedAll() }}</th>
+          <td>All | Real</td>
+          <th>{{ getRealAverageAccuracyAll() }}</th>
+        </tr>
+        <tr>
+          <th>{{ getAverageSpeedLast() }}</th>
+          <td>Last 10</td>
+          <th>{{ getAverageAccuracyLast() }}</th>
+        </tr>
+        <tr>
+          <th>{{ getRealAverageSpeedLast() }}</th>
+          <td>Last 10 | Real</td>
+          <th>{{ getRealAverageAccuracyLast() }}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
