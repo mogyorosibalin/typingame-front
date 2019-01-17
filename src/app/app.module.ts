@@ -36,6 +36,7 @@ import { OpenedDirective } from './shared/directives/opened.directive';
 
 import { ReversePipe } from './shared/pipes/reverse.pipe';
 import { FilterPipe } from './shared/pipes/filter.pipe';
+import { TestsComponent } from './modules/tests/tests.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { FilterPipe } from './shared/pipes/filter.pipe';
     ProductDetailComponent,
     FilterPipe,
     ProductEditComponent,
-    ProductTextComponent
+    ProductTextComponent,
+    TestsComponent
   ],
   imports: [
     BrowserModule,

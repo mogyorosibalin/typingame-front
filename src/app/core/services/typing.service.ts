@@ -120,6 +120,7 @@ export class TypingService {
     }
 
     if (this.isBackspacePressed(event)) {
+      event.preventDefault();
       this.nextChar = this.currentChar.previousElementSibling;
       if (this.nextChar) {
         this.resetChar(this.nextChar);

@@ -12,12 +12,14 @@ import { LoadingComponent } from './shared/components/loading/loading.component'
 import { StatisticsComponent } from './modules/dashboard/statistics/statistics.component';
 import { ProductDetailComponent } from './modules/admin/product-detail/product-detail.component';
 import { ProductEditComponent } from './modules/admin/product-edit/product-edit.component';
+import { TestsComponent } from './modules/tests/tests.component';
 
 import { AuthGuard } from './core/guards/auth-guard.service';
 
 const appRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/about' },
   { path: 'practice', component: PracticeComponent, runGuardsAndResolvers: 'always' },
+  { path: 'tests', component: TestsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'styles', component: StylesComponent },
   { path: 'admin/products', component: AdminComponent, children: [
