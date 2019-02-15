@@ -10,4 +10,43 @@
   padding: 1.5rem
   margin-bottom: 1.5rem
   border: 2px solid transparent
-  transition: border-color 0.3s ease
+  transition: border-color 0.3s ease, box-shadow 0.3s ease
+
+  &:hover
+    box-shadow: 0 0 8px rgba(0, 0, 0, .8)
+
+.row
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+
+  [class*='col']
+    padding-left: 0.5rem
+    padding-right: 0.5rem
+
+  .col
+    max-width: unset
+    flex: 0 0 auto
+
+  @for $i from 1 through $colNum
+    .col-#{$i}
+      flex: 0 0 calc(100% * (#{$i} / #{$colNum}))
+      max-width: calc(100% * (#{$i} / #{$colNum}))
+
+  @media (max-width: $widthLg)
+    @for $i from 1 through $colNum
+      .col-lg-#{$i}
+        flex: 0 0 calc(100% * (#{$i} / #{$colNum}))
+        max-width: calc(100% * (#{$i} / #{$colNum}))
+
+  @media (max-width: $widthMd)
+    @for $i from 1 through $colNum
+      .col-md-#{$i}
+        flex: 0 0 calc(100% * (#{$i} / #{$colNum}))
+        max-width: calc(100% * (#{$i} / #{$colNum}))
+
+  @media (max-width: $widthSm)
+    @for $i from 1 through $colNum
+      .col-sm-#{$i}
+        flex: 0 0 calc(100% * (#{$i} / #{$colNum})) !important
+        max-width: calc(100% * (#{$i} / #{$colNum})) !important

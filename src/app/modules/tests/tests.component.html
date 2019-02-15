@@ -6,15 +6,15 @@
 <div class="content-container">
   <h2 class="page-title">Test Text</h2>
   <div class="test-texts-container">
-    <div class="test-text">
-      <a routerLink="/" class="btn btn-green">
+    <div class="test-text" *ngFor="let testText of getTestTexts()">
+      <a routerLink="{{ testText.id }}" class="btn btn-green">
         <i class="fas fa-play"></i>
       </a>
       <a routerLink="/" class="btn btn-blue">
         <i class="fas fa-poll"></i>
       </a>
       <p class="text">
-        (textId) - (times typed) - Basic test text, first 50 letter.
+        {{ testText.id }} - {{ testText.text.text | shorten:100 }}
       </p>
     </div>
   </div>

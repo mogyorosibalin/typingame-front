@@ -16,6 +16,12 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
   }
 
+  changeLast(amount: number) {
+    this.lastNum += amount;
+    this.lastNum = Math.max(this.lastNum, 1);
+    this.lastNum = Math.min(this.lastNum, this.userService.getTypingTimes());
+  }
+
   getPicture(): string {
     return this.userService.getProfilePicture();
   }

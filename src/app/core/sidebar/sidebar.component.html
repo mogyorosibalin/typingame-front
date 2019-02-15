@@ -21,20 +21,17 @@
       <a (click)="onPractice()" class="menu-link">Practice</a>
     </li>
     <li class="menu-item">
-      <a routerLink="/tests" class="menu-link">Tests</a>
-    </li>
-    <li class="menu-item">
       <a routerLink="/about" class="menu-link">About</a>
-    </li>
-    <li class="menu-item">
-      <a routerLink="/styles" class="menu-link">Styles</a>
-    </li>
-    <li class="menu-item">
-      <a routerLink="/admin/products" class="menu-link">Admin</a>
     </li>
     <ng-template [ngIf]="isAuthenticated()">
       <li class="menu-item">
+        <a routerLink="/tests" class="menu-link">Tests</a>
+      </li>
+      <li class="menu-item">
         <a routerLink="/dashboard" class="menu-link">Dashboard</a>
+      </li>
+      <li class="menu-item">
+        <a routerLink="/admin/products" class="menu-link">Admin</a>
       </li>
       <li class="menu-item">
         <a (click)="onLogout()" class="menu-link">Log Out</a>

@@ -1,14 +1,11 @@
 @import '../../../../assets/sass/modules/colors'
 
-$avatarSize: 200px
+$avatarSize: 180px
 
 .content-container
-  display: flex
-  flex-direction: row
-  align-items: flex-start
-
   .user-image-container
-    flex-grow: 1
+    padding: 0 2rem 1rem 0
+
     .user-image
       display: block
       margin: 0 auto
@@ -21,13 +18,12 @@ $avatarSize: 200px
       border: 3px solid white
       box-shadow: 0 0 4px rgba(0, 0, 0, .4)
 
-  .user-info-container
-    flex-grow: 1
-    margin: 0 2rem
-    padding: 0 2rem
-    border-left: 1px solid $colorLight
+  .user-container
     border-right: 1px solid $colorLight
     align-self: stretch
+
+  .user-info-container
+    padding: 0 2rem 0 0
 
     .user-info
       display: flex
@@ -53,9 +49,28 @@ $avatarSize: 200px
           weight: 700
 
   .user-statistics
-    flex-grow: 1
+    .last-number
+      display: inline-block
+      margin: 0 0.4rem
+      color: $colorDark
+      font:
+        size: 1.2rem
+        weight: bold
+      line-height: 1.5rem
+      user-select: none
+
+    .increase-last, .decrease-last
+      cursor: pointer
+      color: $colorLight
+      font-size: 1.5rem
+      line-height: 1.5rem
+      user-select: none
+
     table.detailed-statistics
+      width: 96%
+      margin: 0 auto
       text-align: center
 
       td
-        padding: 0.5rem
+        width: calc(100% / 3)
+        padding: 0.8rem 0.5rem

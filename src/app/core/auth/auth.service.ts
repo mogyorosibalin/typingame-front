@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   handleAuthentication(): void {
-    this.auth0.parseHash({}, (err, authResult) => {
+    this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.localLogin(authResult);
@@ -99,7 +99,6 @@ export class AuthService {
     this.httpClient.get('http://localhost:8080/typing-results/' + this.userService.getHash())
       .subscribe(
         (typingResults: any) => {
-          console.log('setting');
           this.userService.setTypingResults(typingResults);
         }
       );

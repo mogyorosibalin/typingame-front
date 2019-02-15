@@ -1,7 +1,14 @@
+@import '../../../assets/sass/modules/colors'
+
 .test-text
   display: flex
   flex-direction: row
   align-items: center
+  border-bottom: 1px solid $colorLight
+  padding: 0.4rem 0
+
+  &:last-child
+    border-bottom: none
 
   .btn
     display: flex

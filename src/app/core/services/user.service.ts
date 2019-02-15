@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
 
-import {CharFeedback} from '../../shared/enums/char-feedback.enum';
+import { UtilService } from './util.service';
+import { CharFeedback } from '../../shared/enums/char-feedback.enum';
 
 @Injectable()
 export class UserService {
 
   private profile: any;
-  private typingResults: any;
+  private typingResults: any[];
 
-  constructor() { }
+  constructor(private util: UtilService) { }
 
   setTypingResults(typingResults: any) {
     this.typingResults = typingResults;
@@ -23,7 +24,7 @@ export class UserService {
   }
 
   getHash(): string {
-    return this.profile ? this.profile.sub : '';
+    return this.profile ? (<string>this.profile.sub).split('|')[1] : '';
   }
 
   getProfilePicture(): string {
@@ -42,19 +43,24 @@ export class UserService {
     return this.profile ? this.profile.nickname : 'guest';
   }
 
+  private extractTypingResults() {
+    let typingResults = [];
+    if (localStorage.getItem('typingResults')) {
+      typingResults = JSON.parse(localStorage.getItem('typingResults'));
+    } else if (this.typingResults) {
+      typingResults = this.typingResults.slice();
+    }
+    return typingResults;
+  }
+
   getSpeed(lastNum: number = 0): number {
+    const typingResults = this.extractTypingResults();
     if (lastNum === 0) {
-      let typingResults = [];
-      if (localStorage.getItem('typingResults')) {
-        typingResults = JSON.parse(localStorage.getItem('typingResults'));
-      } else if (this.typingResults) {
-        typingResults = this.typingResults.slice();
-      }
       return typingResults.length !== 0 ? this.getAverageSpeedImpl(typingResults) : 0;
     } else {
-      lastNum = Math.min(lastNum, this.typingResults ? this.typingResults.length : 0);
+      lastNum = Math.min(lastNum, typingResults ? typingResults.length : 0);
       lastNum = Math.max(lastNum, 0);
-      return this.typingResults && this.typingResults.length !== 0 ? this.getAverageSpeedImpl(this.typingResults.slice(0, lastNum)) : 0;
+      return typingResults.length !== 0 ? this.getAverageSpeedImpl(typingResults.slice(0, lastNum)) : 0;
     }
   }
 
@@ -67,12 +73,13 @@ export class UserService {
   }
 
   getRealSpeed(lastNum: number = 0): number {
+    const typingResults = this.extractTypingResults();
     if (lastNum === 0) {
-      return this.typingResults.length !== 0 ? this.getRealAverageSpeedImpl(this.typingResults.slice()) : 0;
+      return typingResults.length !== 0 ? this.getRealAverageSpeedImpl(typingResults.slice()) : 0;
     } else {
-      lastNum = Math.min(lastNum, this.typingResults ? this.typingResults.length : 0);
+      lastNum = Math.min(lastNum, typingResults ? typingResults.length : 0);
       lastNum = Math.max(lastNum, 0);
-      return this.typingResults.length !== 0 ? this.getRealAverageSpeedImpl(this.typingResults.slice(0, lastNum)) : 0;
+      return typingResults.length !== 0 ? this.getRealAverageSpeedImpl(typingResults.slice(0, lastNum)) : 0;
     }
   }
 
@@ -87,18 +94,13 @@ export class UserService {
   }
 
   getAccuracy(lastNum: number = 0): number {
+    const typingResults = this.extractTypingResults();
     if (lastNum === 0) {
-      let typingResults = [];
-      if (localStorage.getItem('typingResults')) {
-        typingResults = JSON.parse(localStorage.getItem('typingResults'));
-      } else if (this.typingResults) {
-        typingResults = this.typingResults.slice();
-      }
       return typingResults.length !== 0 ? this.getAverageAccuracyImpl(typingResults) : 0;
     } else {
-      lastNum = Math.min(lastNum, this.typingResults ? this.typingResults.length : 0);
+      lastNum = Math.min(lastNum, typingResults ? typingResults.length : 0);
       lastNum = Math.max(lastNum, 0);
-      return this.typingResults.length !== 0 ? this.getAverageAccuracyImpl(this.typingResults.slice(0, lastNum)) : 0;
+      return typingResults.length !== 0 ? this.getAverageAccuracyImpl(typingResults.slice(0, lastNum)) : 0;
     }
   }
 
@@ -108,16 +110,17 @@ export class UserService {
       accuracySum += Math.round(
         (typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / typingResult.chars.length) * 100 * 100) / 100;
     }
-    return Math.round(accuracySum / typingResults.length * 100) / 100;
+    return this.util.getPercentage(accuracySum / (typingResults.length * 100));
   }
 
   getRealAccuracy(lastNum: number = 0): number {
+    const typingResults = this.extractTypingResults();
     if (lastNum === 0) {
-      return this.getRealAverageAccuracyImpl(this.typingResults.slice());
+      return this.getRealAverageAccuracyImpl(typingResults.slice());
     } else {
-      lastNum = Math.min(lastNum, this.typingResults ? this.typingResults.length : 0);
+      lastNum = Math.min(lastNum, typingResults ? typingResults.length : 0);
       lastNum = Math.max(lastNum, 0);
-      return this.getRealAverageAccuracyImpl(this.typingResults.slice(0, lastNum));
+      return this.getRealAverageAccuracyImpl(typingResults.slice(0, lastNum));
     }
   }
 
@@ -128,28 +131,15 @@ export class UserService {
       charsPressed += typingResult.chars.length;
       goodChars += typingResult.chars.filter(good => good !== CharFeedback.WRONG).length;
     }
-    return Math.round(goodChars / charsPressed * 100 * 100) / 100;
+    return this.util.getPercentage(goodChars / charsPressed);
   }
 
   getTypingTimes(): number {
-    let typingResults = [];
-    if (localStorage.getItem('typingResults')) {
-      typingResults = JSON.parse(localStorage.getItem('typingResults'));
-    } else if (this.typingResults) {
-      typingResults = this.typingResults;
-    }
-    return typingResults.length;
+    return this.extractTypingResults().length;
   }
 
   getPoints(): number {
-    if (this.typingResults) {
-      let points = 0;
-      for (const typingResult of this.typingResults) {
-        points += typingResult.points;
-      }
-      return points;
-    }
-    return 0;
+    return this.extractTypingResults().reduce((a, b) => a + b.points, 0);
   }
 
 }
