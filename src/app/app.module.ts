@@ -15,6 +15,7 @@ import { AboutComponent } from './modules/about/about.component';
 import { StylesComponent } from './modules/styles/styles.component';
 
 import { TestsComponent } from './modules/tests/tests.component';
+import { GameComponent } from './modules/game/game.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TestsComponent } from './modules/tests/tests.component';
     AboutComponent,
     StylesComponent,
     TestsComponent,
+    GameComponent,
   ],
   imports: [
     BrowserModule,
