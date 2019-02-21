@@ -46,6 +46,7 @@ export class AuthService {
         window.location.hash = '';
         this.localLogin(authResult);
         this.getUserStatistics();
+        this.checkUserInDatabase(authResult);
         this.router.navigate(['/practice']);
       } else if (err) {
         this.router.navigate(['/practice']);
@@ -55,15 +56,15 @@ export class AuthService {
   }
 
   private localLogin(authResult): void {
+    console.log(authResult);
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.removeItem('typingResults');
     this.userService.setProfile(authResult.idTokenPayload);
     // Set the time that the access token will expire at
-    const expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
-    this._expiresAt = expiresAt;
+    this._expiresAt = (authResult.expiresIn * 1000) + new Date().getTime();
   }
 
   renewTokens(): void {
@@ -102,6 +103,14 @@ export class AuthService {
           this.userService.setTypingResults(typingResults);
         }
       );
+  }
+
+  private checkUserInDatabase(authResult) {
+    this.httpClient.post('http://localhost:3000/users', {
+      _authHash: authResult.idTokenPayload.sub,
+      name: authResult.idTokenPayload.name,
+      nickname: authResult.idTokenPayload.nickname
+    }).subscribe();
   }
 
 }

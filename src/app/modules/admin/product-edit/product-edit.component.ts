@@ -66,7 +66,7 @@ export class ProductEditComponent implements OnInit, OnDestroy {
       } else {
         productName = product.name;
         productAuthor = product.author;
-        productType = product.productType.type;
+        productType = product.productType.name;
       }
     }
 

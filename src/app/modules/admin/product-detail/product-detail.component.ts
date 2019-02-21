@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { TypingInfoService } from '../../../shared/services/typing-info.service';
+import { TextService } from '../../../shared/services/text.service';
 import { ProductService } from '../../../shared/services/product.service';
 
-import { TypingInfo } from '../../../shared/models/typing-info.model';
+import { Text } from '../../../shared/models/text.model';
 import { Product } from '../../../shared/models/product.model';
 
 @Component({
@@ -18,14 +18,14 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   productId: number;
   private product: Product;
   private productsChangedSubscription: Subscription;
-  private typingInfos: TypingInfo[];
-  private typingInfosChangedSubscription: Subscription;
+  private texts: Text[];
+  private textsChangedSubscription: Subscription;
 
   private newText = false;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private typingInfoService: TypingInfoService,
+              private typingInfoService: TextService,
               private productService: ProductService) { }
 
   ngOnInit() {
@@ -34,16 +34,16 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         (params: Params) => {
           this.productId = +params['id'];
           this.product = this.productService.getProduct(this.productId);
-          this.typingInfos = this.typingInfoService.getTypingInfosByProductId(this.productId);
-          if (this.typingInfos.length === 0) {
-            this.typingInfoService.fetchTypingInfosForProduct(this.productId);
+          this.texts = this.typingInfoService.getTextsByProductId(this.productId);
+          if (this.texts.length === 0) {
+            this.typingInfoService.fetchTextsForProduct(this.productId);
           }
         }
       );
-    this.typingInfosChangedSubscription = this.typingInfoService.typingInfosChanged
+    this.textsChangedSubscription = this.typingInfoService.textsChanged
       .subscribe(
-        (typingInfos: TypingInfo[]) => {
-          this.typingInfos = typingInfos;
+        (texts: Text[]) => {
+          this.texts = texts;
         }
       );
     this.productsChangedSubscription = this.productService.productsChanged
@@ -58,7 +58,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.typingInfosChangedSubscription.unsubscribe();
+    this.textsChangedSubscription.unsubscribe();
     this.productsChangedSubscription.unsubscribe();
   }
 
@@ -66,8 +66,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     return this.product;
   }
 
-  getTypingInfos(): TypingInfo[] {
-    return this.typingInfos;
+  getTexts(): Text[] {
+    return this.texts;
   }
 
   isNewText(): boolean {
@@ -84,7 +84,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   onDelete() {
     if (confirm('Are you sure you want to delete this product: ' + this.product.name + '?')) {
-      this.typingInfoService.deleteTypingInfoForProduct(this.product.id);
+      this.typingInfoService.deleteTextsForProduct(this.product.id);
       this.productService.deleteProduct(this.product.id);
     }
   }

@@ -1,6 +1,6 @@
-import { TypingInfo } from './typing-info.model';
+import { Text } from './text.model';
 
 export class TestText {
   id: number;
-  text: TypingInfo;
+  text: Text;
 }

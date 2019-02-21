@@ -13,7 +13,7 @@ import { ShortenPipe } from './pipes/shorten.pipe';
 import { ProductService } from './services/product.service';
 import { ProductTypeService } from './services/product-type.service';
 import { TestTextService } from './services/test-text.service';
-import { TypingInfoService } from './services/typing-info.service';
+import { TextService } from './services/text.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { TypingInfoService } from './services/typing-info.service';
     ProductService,
     ProductTypeService,
     TestTextService,
-    TypingInfoService
+    TextService
   ]
 })
 export class SharedModule { }

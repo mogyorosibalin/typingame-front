@@ -1,7 +1,7 @@
 import { Product } from './product.model';
 
-export class TypingInfo {
-  id: number;
+export class Text {
+  _id: number;
   product: Product;
   text: string;
 }

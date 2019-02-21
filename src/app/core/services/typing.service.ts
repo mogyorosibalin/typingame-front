@@ -1,28 +1,28 @@
-import {ElementRef, Injectable, Renderer2} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Subject} from 'rxjs';
+import { ElementRef, Injectable, Renderer2 } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
-import {AuthService} from '../auth/auth.service';
-import {UserService} from './user.service';
+import { AuthService } from '../auth/auth.service';
+import { UserService } from './user.service';
 
-import {TypingInfo} from '../../shared/models/typing-info.model';
+import { Text } from '../../shared/models/text.model';
 
-import {CharFeedback} from '../../shared/enums/char-feedback.enum';
+import { CharFeedback } from '../../shared/enums/char-feedback.enum';
 
 @Injectable()
 export class TypingService {
 
   private renderer: Renderer2;
 
-  typingInfoFetched = new Subject<TypingInfo>();
+  textFetched = new Subject<Text>();
   typingFinished = new Subject();
   typingAgain = new Subject();
 
-  private typingInfo: TypingInfo;
+  private text: Text;
 
   private typingContainer: ElementRef;
   private textContainer: ElementRef;
-  private text: string;
+  private textString: string;
 
   private interval;
 
@@ -41,14 +41,19 @@ export class TypingService {
   constructor(private httpClient: HttpClient,
               private authService: AuthService,
               private userService: UserService) { }
-  fetchTypingInfo() {
-    return this.httpClient.get<TypingInfo>('http://localhost:8080/texts/random')
+
+  fetchText() {
+    return this.httpClient.get<Text>('http://localhost:3000/texts/random')
       .subscribe(
-        (typingInfo: TypingInfo) => {
-          this.typingInfo = typingInfo;
-          this.typingInfoFetched.next(typingInfo);
+        (text) => {
+          this.text = text;
+          this.textFetched.next(this.text);
         }
       );
+  }
+
+  getText(): Text {
+    return this.text;
   }
 
   setRenderer(renderer: Renderer2) {
@@ -71,11 +76,11 @@ export class TypingService {
 
     this.typingContainer = typingContainer;
     this.textContainer = textContainer;
-    this.text = practiceText;
+    this.textString = practiceText;
 
     this.setUpTextWasGoodArray();
 
-    this.loadTextToDom(this.text, this.textContainer);
+    this.loadTextToDom(this.textString, this.textContainer);
   }
 
   loadTextToDom(text: string, textContainer: ElementRef): void {
@@ -164,7 +169,7 @@ export class TypingService {
         }
         this.charWasPressed();
       }
-      this.textIndex = Math.min(++this.textIndex, this.text.length - 1);
+      this.textIndex = Math.min(++this.textIndex, this.textString.length - 1);
       if (this.isCompleted()) {
         this.wasCompleted();
       }
@@ -193,7 +198,7 @@ export class TypingService {
   }
 
   private setUpTextWasGoodArray() {
-    for (let i = 0; i < this.text.length; i++) {
+    for (let i = 0; i < this.textString.length; i++) {
       this.textWasGoodArray.push(CharFeedback.CORRECT);
     }
   }
@@ -218,7 +223,7 @@ export class TypingService {
   }
 
   private getProgression() {
-    return Math.round(this.typingContainer.nativeElement.querySelectorAll('#textContainer .correct').length / this.text.length * 100);
+    return Math.round(this.typingContainer.nativeElement.querySelectorAll('#textContainer .correct').length / this.textString.length * 100);
   }
 
   private isGoing(): boolean {
@@ -235,7 +240,7 @@ export class TypingService {
 
   private isCompleted(): boolean {
     return !this.isError() &&
-      this.typingContainer.nativeElement.querySelectorAll('.correct').length === this.text.length;
+      this.typingContainer.nativeElement.querySelectorAll('.correct').length === this.textString.length;
   }
 
   private wasCompleted() {
@@ -256,9 +261,9 @@ export class TypingService {
 
   private saveResultOnline() {
     this.httpClient.post(
-      'http://localhost:8080/typing-results/save',
+      'http://localhost:3000/typing-results',
       {
-        textId: this.typingInfo.id,
+        textId: this.text._id,
         chars: this.textWasGoodArray,
         time: this.getElapsedTime(),
         userHash: this.userService.getHash(),
@@ -308,11 +313,11 @@ export class TypingService {
   }
 
   getFinalSpeed() {
-    return Math.round((this.text.length / 5) / (this.getElapsedTime() / 1000 / 60));
+    return Math.round((this.textString.length / 5) / (this.getElapsedTime() / 1000 / 60));
   }
 
   getPoints() {
-    return Math.round((this.text.length / 2) * (this.getAccuracy() / 100) * (this.getFinalSpeed() / 100));
+    return Math.round((this.textString.length / 2) * (this.getAccuracy() / 100) * (this.getFinalSpeed() / 100));
   }
 
 }

@@ -51,7 +51,7 @@ export class ProductService {
       if (this.products[i].id === productId) {
         this.products[i].name = formValue.name;
         this.products[i].author = formValue.author;
-        this.products[i].productType.type = formValue.type;
+        this.products[i].productType.name = formValue.name;
         break;
       }
     }

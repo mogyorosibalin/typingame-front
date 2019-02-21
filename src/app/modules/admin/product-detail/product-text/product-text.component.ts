@@ -1,8 +1,8 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
-import { TypingInfoService } from '../../../../shared/services/typing-info.service';
+import { TextService } from '../../../../shared/services/text.service';
 
-import { TypingInfo } from '../../../../shared/models/typing-info.model';
+import { Text } from '../../../../shared/models/text.model';
 
 @Component({
   selector: 'app-product-text',
@@ -11,17 +11,17 @@ import { TypingInfo } from '../../../../shared/models/typing-info.model';
 })
 export class ProductTextComponent implements OnInit {
 
-  @Input() typingInfo: TypingInfo;
+  @Input() text: Text;
   @Input() isNewText = false;
   @Input() productId: number;
 
   @Output('cancelNewText') cancelNewText = new EventEmitter();
 
-  @ViewChild('text') text: ElementRef;
+  @ViewChild('textContainer') textContainer: ElementRef;
 
   private editing = false;
 
-  constructor(private typingInfoService: TypingInfoService) { }
+  constructor(private textService: TextService) { }
 
   ngOnInit() {
     if (this.isNewText) {
@@ -38,19 +38,19 @@ export class ProductTextComponent implements OnInit {
   }
 
   onDelete() {
-    if (confirm('Are you sure you want to delete this text: ' + this.typingInfo.text + '?')) {
-      this.typingInfoService.deleteTypingInfo(this.typingInfo.id);
+    if (confirm('Are you sure you want to delete this text: ' + this.text.text + '?')) {
+      this.textService.deleteText(this.text._id);
     }
   }
 
   onSave() {
     if (this.isNewText) {
       // Save New
-      this.typingInfoService.addTypingInfo(this.productId, this.text.nativeElement.value);
+      this.textService.addText(this.productId, this.textContainer.nativeElement.value);
       this.cancelNewText.emit();
     } else {
       // Update current
-      this.typingInfoService.updateTypingInfo(this.typingInfo.id, this.text.nativeElement.value);
+      this.textService.updateText(this.text._id, this.textContainer.nativeElement.value);
       this.onCancel();
     }
   }

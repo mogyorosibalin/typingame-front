@@ -1,7 +1,7 @@
 <div class="product-text-container">
   <div class="product-text">
     <p class="raw-text" *ngIf="!isEditing()">
-      {{ typingInfo.text }}
+      {{ text.text }}
     </p>
     <div class="input-group" *ngIf="isEditing()">
       <div class="input-container">
@@ -10,7 +10,7 @@
           class="input-control"
           rows="3"
           appInputFilled
-          #text>{{ typingInfo ? typingInfo.text : '' }}</textarea>
+          #textContainer>{{ text ? text.text : '' }}</textarea>
         <label
           *ngIf="isNewText"
           for="{{ isNewText ? 'newText' : '' }}"

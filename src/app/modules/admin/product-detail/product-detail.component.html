@@ -9,7 +9,7 @@
       <b>{{ getProduct().name }}</b> | {{ getProduct().author }}
     </div>
     <div class="product-type">
-      {{ getProduct().productType.type }}
+      {{ getProduct().productType.name }}
     </div>
   </div>
   <div class="scrollable-container">
@@ -19,7 +19,7 @@
       [productId]="getProduct().id"
       (cancelNewText)="onCancelNewText()"></app-product-text>
     <app-product-text
-      *ngFor="let typingInfo of getTypingInfos()"
-      [typingInfo]="typingInfo"></app-product-text>
+      *ngFor="let typingInfo of getTexts()"
+      [text]="typingInfo"></app-product-text>
   </div>
 </div>

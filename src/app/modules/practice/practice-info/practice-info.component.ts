@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { TypingService } from '../../../core/services/typing.service';
 
-import { TypingInfo } from '../../../shared/models/typing-info.model';
+import { Text } from '../../../shared/models/text.model';
 
 @Component({
   selector: 'app-practice-info',
@@ -11,11 +11,12 @@ import { TypingInfo } from '../../../shared/models/typing-info.model';
 })
 export class PracticeInfoComponent implements OnInit {
 
-  @Input() typingInfo: TypingInfo;
+  text: Text;
 
   constructor(private typingService: TypingService) { }
 
   ngOnInit() {
+    this.text = this.typingService.getText();
   }
 
   onPracticeAgain() {

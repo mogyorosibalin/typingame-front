@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../core/auth/auth.service';
 import { TypingService } from '../../core/services/typing.service';
 
-import { TypingInfo } from '../../shared/models/typing-info.model';
+import { Text } from '../../shared/models/text.model';
 
 @Component({
   selector: 'app-practice',
@@ -13,8 +13,8 @@ import { TypingInfo } from '../../shared/models/typing-info.model';
 })
 export class PracticeComponent implements OnInit, OnDestroy {
 
-  private typingInfoFetched: Subscription;
-  typingInfo: TypingInfo;
+  private textFetched: Subscription;
+  text: Text;
 
   private practiceFinished: Subscription;
   private finished = false;
@@ -25,11 +25,11 @@ export class PracticeComponent implements OnInit, OnDestroy {
               private authService: AuthService) { }
 
   ngOnInit() {
-    this.typingService.fetchTypingInfo();
-    this.typingInfoFetched = this.typingService.typingInfoFetched
+    this.typingService.fetchText();
+    this.textFetched = this.typingService.textFetched
       .subscribe(
-        (typingInfo: TypingInfo) => {
-          this.typingInfo = typingInfo;
+        (text: Text) => {
+          this.text = text;
         }
       );
     this.practiceFinished = this.typingService.typingFinished
@@ -41,16 +41,16 @@ export class PracticeComponent implements OnInit, OnDestroy {
     this.typingAgain = this.typingService.typingAgain
       .subscribe(
         () => {
-          this.typingInfo = null;
+          this.text = null;
           this.finished = false;
-          this.typingService.fetchTypingInfo();
+          this.typingService.fetchText();
         }
       );
   }
 
   ngOnDestroy() {
     this.practiceFinished.unsubscribe();
-    this.typingInfoFetched.unsubscribe();
+    this.textFetched.unsubscribe();
     this.typingAgain.unsubscribe();
   }
 
