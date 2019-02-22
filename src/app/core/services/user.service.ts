@@ -16,7 +16,7 @@ export class UserService {
   }
 
   getTypingResults() {
-    return this.typingResults;
+    return this.typingResults.slice();
   }
 
   setProfile(profile: any) {

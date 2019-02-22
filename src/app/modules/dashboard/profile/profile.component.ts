@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Chart } from 'chart.js';
 
 import { UserService } from '../../../core/services/user.service';
+import {CharFeedback} from '../../../shared/enums/char-feedback.enum';
 
 @Component({
   selector: 'app-profile',
@@ -11,9 +13,104 @@ export class ProfileComponent implements OnInit {
 
   lastNum = 10;
 
+  speedChart = {
+    type: 'scatter',
+    datasets: [
+      {
+        data: this.createChartDataSpeed(),
+        label: 'Speed (WPM)',
+        fill: false,
+        backgroundColor: '#f00',
+        borderColor: '#f00',
+        showLine: true,
+        tension: 0
+      }
+    ],
+    options: {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          display: true,
+          ticks: {
+            stepSize: 1,
+            suggestedMin: 1,
+            suggestedMax: 10
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+          },
+          ticks: {
+            suggestedMin: 40,
+            suggestedMax: 100
+          }
+        }]
+      }
+    },
+    legend: false
+  };
+
+  accuracyChart = {
+    type: 'scatter',
+    datasets: [
+      {
+        data: this.createChartDataAccuracy(),
+        label: 'Accuracy (%)',
+        fill: false,
+        backgroundColor: '#00f',
+        borderColor: '#00f',
+        showLine: true,
+        tension: 0
+      }
+    ],
+    options: {
+      responsive: true,
+      scales: {
+        xAxes: [{
+          display: true,
+          ticks: {
+            stepSize: 1,
+            suggestedMin: 1,
+            suggestedMax: 10
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+          },
+          ticks: {
+            suggestedMin: 95,
+            suggestedMax: 100
+          }
+        }]
+      }
+    },
+    legend: false
+  };
+
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+  }
+
+  createChartDataSpeed() {
+    const data = [];
+    for (const typingResult of this.userService.getTypingResults().reverse()) {
+      data.push({ x: data.length + 1, y: Math.round((typingResult.chars.length / 5) / (typingResult.timeMiliSec / 1000 / 60)) });
+    }
+    return data;
+  }
+
+  createChartDataAccuracy() {
+    const data = [];
+    for (const typingResult of this.userService.getTypingResults().reverse()) {
+      data.push({ x: data.length + 1, y: Math.round(
+          (typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / typingResult.chars.length) * 100 * 100) / 100 });
+    }
+    return data;
   }
 
   changeLast(amount: number) {

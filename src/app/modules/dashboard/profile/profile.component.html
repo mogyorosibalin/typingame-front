@@ -5,10 +5,6 @@
         <div class="user-image" [ngStyle]="{ 'background-image': 'url(' + getPicture() + ')'}"></div>
       </div>
       <div class="user-info-container">
-        <div class="user-name user-info">
-          <span class="user-info-label">Name:</span>
-          <span class="user-info-data">{{ getName() }}</span>
-        </div>
         <div class="user-nickname user-info">
           <span class="user-info-label">Nickname:</span>
           <span class="user-info-data">{{ getNickname() }}</span>
@@ -68,6 +64,36 @@
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+</div>
+<div class="content-container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="h3">Speed Chart (WPM)</h3>
+      <canvas
+        width="800"
+        height="300"
+        baseChart
+        [datasets]="speedChart.datasets"
+        [legend]="speedChart.legend"
+        [options]="speedChart.options"
+        [chartType]="speedChart.type"></canvas>
+    </div>
+  </div>
+</div>
+<div class="content-container">
+  <div class="row">
+    <div class="col-12">
+      <h3 class="h3">Accuracy Chart (%)</h3>
+      <canvas
+        width="800"
+        height="300"
+        baseChart
+        [datasets]="accuracyChart.datasets"
+        [legend]="accuracyChart.legend"
+        [options]="accuracyChart.options"
+        [chartType]="accuracyChart.type"></canvas>
     </div>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
@@ -31,6 +32,7 @@ import { GameComponent } from './modules/game/game.component';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    ChartsModule,
     CoreModule,
     SharedModule,
     AdminModule,

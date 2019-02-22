@@ -97,7 +97,7 @@ export class AuthService {
   }
 
   getUserStatistics() {
-    this.httpClient.get('http://localhost:8080/typing-results/' + this.userService.getHash())
+    this.httpClient.get('http://localhost:3000/typing-results/' + this.userService.getHash())
       .subscribe(
         (typingResults: any) => {
           this.userService.setTypingResults(typingResults);
