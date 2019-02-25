@@ -13,7 +13,7 @@ export class ProductService {
   constructor(private httpClient: HttpClient) { }
 
   fetchProducts() {
-    this.httpClient.get<Product[]>('http://localhost:8080/products')
+    this.httpClient.get<Product[]>('http://localhost:3000/products')
       .subscribe(
         (products: Product[]) => {
           this.setProducts(products);
@@ -21,10 +21,10 @@ export class ProductService {
       );
   }
 
-  getProduct(productId: number) {
+  getProduct(_id: number) {
     if (this.products) {
-      for (let product of this.products) {
-        if (product.id === productId) {
+      for (const product of this.products) {
+        if (product._id === _id) {
           return product;
         }
       }
@@ -38,7 +38,7 @@ export class ProductService {
   }
 
   addProduct(formValue: any) {
-    this.httpClient.post('http://localhost:8080/products/new', formValue)
+    this.httpClient.post('http://localhost:3000/products', formValue)
       .subscribe(
         (products: Product[]) => {
           this.setProducts(products);
@@ -46,16 +46,16 @@ export class ProductService {
       );
   }
 
-  updateProduct(productId: number, formValue: any) {
+  updateProduct(_id: number, formValue: any) {
     for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === productId) {
+      if (this.products[i]._id === _id) {
         this.products[i].name = formValue.name;
         this.products[i].author = formValue.author;
         this.products[i].productType.name = formValue.name;
         break;
       }
     }
-    this.httpClient.put('http://localhost:8080/products/' + productId + '/edit', formValue)
+    this.httpClient.put('http://localhost:8080/products/' + _id + '/edit', formValue)
       .subscribe(
         (products: Product[]) => {
           this.setProducts(products);
@@ -63,14 +63,14 @@ export class ProductService {
       );
   }
 
-  deleteProduct(id: number) {
+  deleteProduct(_id: number) {
     for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
+      if (this.products[i]._id === _id) {
         this.products.splice(i, 1);
         this.productsChanged.next(this.products.slice());
         break;
       }
     }
-    this.httpClient.delete('http://localhost:8080/products/' + id + '/delete').subscribe();
+    this.httpClient.delete('http://localhost:8080/products/' + _id + '/delete').subscribe();
   }
 }

@@ -32,7 +32,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.productId = +params['id'];
+          this.productId = params['id'];
           this.product = this.productService.getProduct(this.productId);
           this.texts = this.typingInfoService.getTextsByProductId(this.productId);
           if (this.texts.length === 0) {
@@ -84,8 +84,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   onDelete() {
     if (confirm('Are you sure you want to delete this product: ' + this.product.name + '?')) {
-      this.typingInfoService.deleteTextsForProduct(this.product.id);
-      this.productService.deleteProduct(this.product.id);
+      this.typingInfoService.deleteTextsForProduct(this.product._id);
+      this.productService.deleteProduct(this.product._id);
     }
   }
 

@@ -56,7 +56,6 @@ export class AuthService {
   }
 
   private localLogin(authResult): void {
-    console.log(authResult);
     // Set isLoggedIn flag in localStorage
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.removeItem('typingResults');

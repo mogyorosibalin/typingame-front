@@ -12,11 +12,11 @@ export class TextService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getTextsByProductId(productId: number): Text[] {
+  getTextsByProductId(_productId: number): Text[] {
     const texts: Text[] = [];
     if (this.texts) {
       for (const text of this.texts) {
-        if (text.product.id === productId) {
+        if (text.product._id === _productId) {
           texts.push(text);
         }
       }
@@ -24,12 +24,12 @@ export class TextService {
     return texts;
   }
 
-  fetchTextsForProduct(productId: number) {
-    this.httpClient.get('http://localhost:8080/products/' + productId + '/texts')
+  fetchTextsForProduct(_productId: number) {
+    this.httpClient.get('http://localhost:3000/products/' + _productId)
       .subscribe(
         (texts: Text[]) => {
           this.texts.push(...texts);
-          this.textsChanged.next(this.getTextsByProductId(productId));
+          this.textsChanged.next(this.getTextsByProductId(_productId));
         }
       );
   }
@@ -65,18 +65,18 @@ export class TextService {
   deleteText(_id: number) {
     for (let i = 0; i < this.texts.length; i++) {
       if (this.texts[i]._id === _id) {
-        const productId = this.texts[i].product.id;
+        const _productId = this.texts[i].product._id;
         this.texts.splice(i, 1);
-        this.textsChanged.next(this.getTextsByProductId(productId));
+        this.textsChanged.next(this.getTextsByProductId(_productId));
         break;
       }
     }
-    this.httpClient.delete('http://localhost:8080/texts/' + _id + '/delete').subscribe();
+    this.httpClient.delete('http://localhost:8080/texts/' + _id).subscribe();
   }
 
-  deleteTextsForProduct(productId: number) {
+  deleteTextsForProduct(_productId: number) {
     for (let i = this.texts.length - 1; i >= 0; i--) {
-      if (this.texts[i].product.id === productId) {
+      if (this.texts[i].product._id === _productId) {
         this.texts.splice(i, 1);
       }
     }

@@ -9,9 +9,9 @@
 </div>
 <ul class="product-list">
   <li class="product-list-item" *ngFor="let product of getProducts() | filter:filterText">
-    <a [routerLink]="[product.id]" routerLinkActive="active" class="product-list-item-link">
+    <a [routerLink]="[product._id]" routerLinkActive="active" class="product-list-item-link">
       <span class="title">
-        <b>{{ product.name }}</b> | {{ product.productType.type }}
+        <b>{{ product.name }}</b> | {{ product.productType.name }}
       </span>
       <i class="fas fa-chevron-right"></i>
     </a>

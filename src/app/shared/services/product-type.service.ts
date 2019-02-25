@@ -13,7 +13,7 @@ export class ProductTypeService {
   constructor(private httpClient: HttpClient) { }
 
   fetchProductTypes() {
-    this.httpClient.get<ProductType[]>('http://localhost:8080/product-types')
+    this.httpClient.get<ProductType[]>('http://localhost:3000/product-types')
       .subscribe(
         (productTypes: ProductType[]) => {
           this.productTypes = productTypes;
@@ -23,7 +23,7 @@ export class ProductTypeService {
   }
 
   getProductTypes() {
-    return this.productTypes;
+    return this.productTypes.slice();
   }
 
 }
