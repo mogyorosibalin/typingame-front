@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChartsModule } from 'ng2-charts';
 
 import { PracticeComponent } from './practice.component';
 import { PracticeTypingComponent } from './practice-typing/practice-typing.component';
@@ -12,7 +13,8 @@ import { PracticeInfoComponent } from './practice-info/practice-info.component';
     PracticeInfoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ChartsModule
   ]
 })
 export class PracticeModule {}

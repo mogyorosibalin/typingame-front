@@ -19,6 +19,8 @@ export class TypingService {
   typingAgain = new Subject();
 
   private text: Text;
+  private typingResultsForText = [];
+  typingResultsForTextChanged = new Subject<any[]>();
 
   private typingContainer: ElementRef;
   private textContainer: ElementRef;
@@ -56,12 +58,18 @@ export class TypingService {
     return this.text;
   }
 
+  getTypingResultsForText() {
+    return this.typingResultsForText.slice();
+  }
+
   setRenderer(renderer: Renderer2) {
     this.renderer = renderer;
   }
 
   resetTypingService() {
     clearInterval(this.interval);
+
+    this.typingResultsForText = [];
 
     this.textIndex = 0;
     this.textWasGoodArray = [];
@@ -270,8 +278,10 @@ export class TypingService {
         points: this.getPoints()
       }
     ).subscribe(
-      (typingResults: any) => {
+      (typingResults: any[]) => {
         this.userService.setTypingResults(typingResults);
+        this.typingResultsForText = typingResults.filter(tr => tr.text._id === this.text._id).reverse();
+        this.typingResultsForTextChanged.next(this.typingResultsForText.slice());
       }
     );
   }

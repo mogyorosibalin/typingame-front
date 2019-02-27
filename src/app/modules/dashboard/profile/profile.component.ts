@@ -1,5 +1,6 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
+import * as moment from 'moment';
 
 import { UserService } from '../../../core/services/user.service';
 import {CharFeedback} from '../../../shared/enums/char-feedback.enum';
@@ -47,6 +48,26 @@ export class ProfileComponent implements OnInit {
             suggestedMax: 100
           }
         }]
+      },
+      tooltips: {
+        custom: function(tooltip) {
+          tooltip.displayColors = false;
+        },
+        callbacks: {
+          title: function(tooltipItem, data) {
+            const item = data.datasets[0].data[tooltipItem[0].index];
+            return moment(item.finishedTime).format('MMM Do YYYY, h:mm a');
+          },
+          label: function(tooltipItem, data) {
+            const item = data.datasets[0].data[tooltipItem.index];
+            return [
+              `Speed: ${item.y} WPM`,
+              `Accuracy: ${item.accuracy}%`
+            ];
+          }
+        },
+        titleFontSize: 16,
+        bodyFontSize: 14
       }
     },
     legend: false
@@ -99,7 +120,14 @@ export class ProfileComponent implements OnInit {
   createChartDataSpeed() {
     const data = [];
     for (const typingResult of this.userService.getTypingResults().reverse()) {
-      data.push({ x: data.length + 1, y: Math.round((typingResult.chars.length / 5) / (typingResult.timeMiliSec / 1000 / 60)) });
+      data.push({
+        x: data.length + 1,
+        y: Math.round((typingResult.chars.length / 5) / (typingResult.timeMiliSec / 1000 / 60)),
+        timiMiliSec: typingResult.timeMiliSec,
+        finishedTime: typingResult.finishedTime,
+        accuracy: Math.round(
+          (typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / typingResult.chars.length) * 100 * 100) / 100
+      });
     }
     return data;
   }
