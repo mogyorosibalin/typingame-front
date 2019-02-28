@@ -45,7 +45,6 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.localLogin(authResult);
-        this.getUserStatistics();
         this.checkUserInDatabase(authResult);
         this.router.navigate(['/practice']);
       } else if (err) {
@@ -60,6 +59,7 @@ export class AuthService {
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.removeItem('typingResults');
     this.userService.setProfile(authResult.idTokenPayload);
+    this.getUserStatistics();
     // Set the time that the access token will expire at
     this._accessToken = authResult.accessToken;
     this._idToken = authResult.idToken;
@@ -71,7 +71,7 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.localLogin(authResult);
       } else if (err) {
-        alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
+        // alert(`Could not get a new token (${err.error}: ${err.error_description}).`);
         this.logout();
       }
     });
@@ -106,7 +106,7 @@ export class AuthService {
 
   private checkUserInDatabase(authResult) {
     this.httpClient.post('http://localhost:3000/users', {
-      _authHash: authResult.idTokenPayload.sub,
+      _authHash: this.userService.getHash(),
       name: authResult.idTokenPayload.name,
       nickname: authResult.idTokenPayload.nickname
     }).subscribe();

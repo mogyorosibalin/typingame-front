@@ -1,0 +1,13 @@
+<div class="container content-container">
+  <form (ngSubmit)="onJoin(f)" #f="ngForm">
+    <div class="input-group">
+      <div class="input-container">
+        <input type="text" id="roomId" class="input-control" name="roomId" appInputFilled ngModel>
+        <label for="roomId" class="input-title">Enter the ID of the room</label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-blue">
+      Join Room
+    </button>
+  </form>
+</div>

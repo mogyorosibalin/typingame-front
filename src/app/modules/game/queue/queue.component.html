@@ -1,0 +1,9 @@
+<div class="container content-container">
+  <p>ID of the room: <b>{{ getRoomId() }}</b></p>
+  <p>Your friends can join if they use the given id to join!</p>
+  <ul *ngIf="room" class="list-group">
+    <li class="list-group-header">Currently joined users</li>
+    <li class="list-group-item" *ngFor="let member of room.members"><b>{{ member.nickname }}</b> - <i>{{ member.email }}</i></li>
+  </ul>
+  <button class="btn btn-green">Start</button>
+</div>
