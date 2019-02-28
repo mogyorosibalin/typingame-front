@@ -4,6 +4,7 @@ import { ChartsModule } from 'ng2-charts';
 
 import { SharedModule } from '../../shared/shared.module';
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { SpeedChartModule } from '../speed-chart/speed-chart.module';
 
 import { DashboardComponent } from './dashboard.component';
 import { PracticeHistoryComponent } from './practice-history/practice-history.component';
@@ -21,9 +22,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
   ],
   imports: [
     CommonModule,
-    ChartsModule,
     SharedModule,
-    DashboardRoutingModule
+    DashboardRoutingModule,
+    SpeedChartModule
   ],
   exports: [
     DashboardRoutingModule

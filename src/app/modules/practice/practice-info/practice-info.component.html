@@ -24,15 +24,7 @@
       {{ text.product.author }}: {{ text.product.name }}
     </h3>
     <div class="chart-container" *ngIf="isAuthenticated() && typingResults">
-      <h4>Speed (WPM) - Previous typing for this text</h4>
-      <canvas
-        width="800"
-        height="200"
-        baseChart
-        [datasets]="speedChart.datasets"
-        [legend]="speedChart.legend"
-        [options]="speedChart.options"
-        [chartType]="speedChart.type"></canvas>
+      <app-speed-chart [typingResults]="typingResults"></app-speed-chart>
     </div>
   </div>
 </div>

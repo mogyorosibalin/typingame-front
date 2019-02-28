@@ -14,131 +14,9 @@ export class ProfileComponent implements OnInit {
 
   lastNum = 10;
 
-  speedChart = {
-    type: 'scatter',
-    datasets: [
-      {
-        data: this.createChartDataSpeed(),
-        label: 'Speed (WPM)',
-        fill: false,
-        backgroundColor: '#f00',
-        borderColor: '#f00',
-        showLine: true,
-        tension: 0
-      }
-    ],
-    options: {
-      responsive: true,
-      scales: {
-        xAxes: [{
-          display: true,
-          ticks: {
-            stepSize: 1,
-            suggestedMin: 1,
-            suggestedMax: 10
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-          },
-          ticks: {
-            suggestedMin: 40,
-            suggestedMax: 100
-          }
-        }]
-      },
-      tooltips: {
-        custom: function(tooltip) {
-          tooltip.displayColors = false;
-        },
-        callbacks: {
-          title: function(tooltipItem, data) {
-            const item = data.datasets[0].data[tooltipItem[0].index];
-            return moment(item.finishedTime).format('MMM Do YYYY, h:mm a');
-          },
-          label: function(tooltipItem, data) {
-            const item = data.datasets[0].data[tooltipItem.index];
-            return [
-              `Speed: ${item.y} WPM`,
-              `Accuracy: ${item.accuracy}%`
-            ];
-          }
-        },
-        titleFontSize: 16,
-        bodyFontSize: 14
-      }
-    },
-    legend: false
-  };
-
-  accuracyChart = {
-    type: 'scatter',
-    datasets: [
-      {
-        data: this.createChartDataAccuracy(),
-        label: 'Accuracy (%)',
-        fill: false,
-        backgroundColor: '#00f',
-        borderColor: '#00f',
-        showLine: true,
-        tension: 0
-      }
-    ],
-    options: {
-      responsive: true,
-      scales: {
-        xAxes: [{
-          display: true,
-          ticks: {
-            stepSize: 1,
-            suggestedMin: 1,
-            suggestedMax: 10
-          }
-        }],
-        yAxes: [{
-          display: true,
-          scaleLabel: {
-            display: true,
-          },
-          ticks: {
-            suggestedMin: 95,
-            suggestedMax: 100
-          }
-        }]
-      }
-    },
-    legend: false
-  };
-
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-  }
-
-  createChartDataSpeed() {
-    const data = [];
-    for (const typingResult of this.userService.getTypingResults().reverse()) {
-      data.push({
-        x: data.length + 1,
-        y: Math.round((typingResult.chars.length / 5) / (typingResult.timeMiliSec / 1000 / 60)),
-        timiMiliSec: typingResult.timeMiliSec,
-        finishedTime: typingResult.finishedTime,
-        accuracy: Math.round(
-          (typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / typingResult.chars.length) * 100 * 100) / 100
-      });
-    }
-    return data;
-  }
-
-  createChartDataAccuracy() {
-    const data = [];
-    for (const typingResult of this.userService.getTypingResults().reverse()) {
-      data.push({ x: data.length + 1, y: Math.round(
-          (typingResult.chars.filter(good => good !== CharFeedback.WRONG).length / typingResult.chars.length) * 100 * 100) / 100 });
-    }
-    return data;
   }
 
   changeLast(amount: number) {
@@ -197,6 +75,10 @@ export class ProfileComponent implements OnInit {
 
   getRealAverageAccuracyAll(): number {
     return this.userService.getRealAccuracy();
+  }
+
+  getTypingResults() {
+    return this.userService.getTypingResults().reverse();
   }
 
 }

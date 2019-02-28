@@ -35,7 +35,7 @@ export class TextService {
   }
 
   addText(productId: number, textString: string) {
-    this.httpClient.post('http://localhost:8080/texts', {
+    this.httpClient.post('http://localhost:3000/texts', {
       productId: productId,
       text: textString
     }).subscribe(

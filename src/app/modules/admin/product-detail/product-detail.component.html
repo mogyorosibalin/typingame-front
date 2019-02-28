@@ -16,7 +16,7 @@
     <app-product-text
       *ngIf="isNewText() && getProduct()"
       [isNewText]="true"
-      [productId]="getProduct().id"
+      [productId]="getProduct()._id"
       (cancelNewText)="onCancelNewText()"></app-product-text>
     <app-product-text
       *ngFor="let typingInfo of getTexts()"
