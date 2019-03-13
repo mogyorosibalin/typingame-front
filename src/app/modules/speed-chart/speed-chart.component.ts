@@ -33,7 +33,7 @@ export class SpeedChartComponent implements OnInit {
           ticks: {
             stepSize: 1,
             suggestedMin: 1,
-            suggestedMax: 10
+            suggestedMax: 3
           }
         }],
         yAxes: [{

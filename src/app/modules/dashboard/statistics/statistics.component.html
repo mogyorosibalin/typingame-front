@@ -1,3 +1,36 @@
 <div class="content-container">
-  statistics works!
+    <div class="row">
+      <div class="col-2 char">
+        Char
+      </div>
+      <div class="col-2 all">
+        All
+      </div>
+      <div class="col-2 good">
+        Good
+      </div>
+      <div class="col-2 wrong">
+        Wrong
+      </div>
+      <div class="col-2 percentage">
+        %
+      </div>
+    </div>
+    <div class="row" *ngFor="let char of chars">
+      <div class="col-2 char">
+        {{ char.char }}
+      </div>
+      <div class="col-2 all">
+        {{ char.good + char.wrong }}
+      </div>
+      <div class="col-2 good">
+        {{ char.good }}
+      </div>
+      <div class="col-2 wrong">
+        {{ char.wrong }}
+      </div>
+      <div class="col-2 percentage">
+        {{ (char.good / (char.good + char.wrong)) * 100 | number: '.3' }}
+      </div>
+    </div>
 </div>

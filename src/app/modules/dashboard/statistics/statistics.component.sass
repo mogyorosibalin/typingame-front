@@ -1,0 +1,25 @@
+@import '../../../../assets/sass/modules/colors'
+
+.row
+  justify-content: center
+  .col-2
+    border-bottom: 1px solid $colorLight
+
+  &:last-child
+    .col-2
+      border-bottom: none
+
+.char, .all, .good, .wrong, .percentage
+  padding: 0.5rem 0
+  text-align: center
+  font-weight: bold
+
+.good
+  color: $colorGreen
+
+.wrong
+  color: $colorRed
+
+.percentage
+  font-weight: normal
+  font-style: italic
