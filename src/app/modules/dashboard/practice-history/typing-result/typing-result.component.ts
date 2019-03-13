@@ -21,6 +21,7 @@ export class TypingResultComponent implements OnInit {
               private renderer: Renderer2) { }
 
   ngOnInit() {
+    this.typingService.setRenderer(this.renderer);
     this.typingService.loadTextToDom(this.typingResult.text.text, this.textContainer);
     const chars = this.textContainer.nativeElement.querySelectorAll('span');
     for (let i = 0; i < chars.length - 1; i++) {
